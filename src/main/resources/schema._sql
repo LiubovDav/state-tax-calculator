@@ -1,0 +1,2 @@
+CREATE SCHEMA `state_tax_calc` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+
