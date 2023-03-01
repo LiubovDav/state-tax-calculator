@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/state_tax_calc
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/state_tax_calc?createDatabaseIfNotExist=true
     username: root
     password: test1234
     driver-class-name: com.mysql.cj.jdbc.Driver
