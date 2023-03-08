@@ -1,5 +1,6 @@
 package org.liubov.statetaxcalculator.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.liubov.statetaxcalculator.dto.UserDTO;
 import org.liubov.statetaxcalculator.model.User;
 import org.liubov.statetaxcalculator.repository.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         userRepository.save(user);
+        log.info("User was successfully saved");
     }
 
     @Override
