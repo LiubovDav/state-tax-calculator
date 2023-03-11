@@ -1,13 +1,11 @@
 package org.liubov.statetaxcalculator.repository;
 
 import org.liubov.statetaxcalculator.model.CalcHistory;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-@Repository
-public interface CalcHistoryRepository extends CrudRepository<CalcHistory, Integer> {
+public interface CalcHistoryRepository extends JpaRepository<CalcHistory, Integer> {
 
     List<CalcHistory> findByUserId(Integer userId);
 }
