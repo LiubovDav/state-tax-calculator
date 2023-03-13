@@ -1,6 +1,5 @@
 package org.liubov.statetaxcalculator.repository;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.liubov.statetaxcalculator.model.User;
@@ -15,7 +14,6 @@ class UserRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
-    @Disabled
     @DisplayName("JUnit test for find user by email operation")
     @Test
     void givenUserObject_whenFindByEmail_thenReturnUserObject() {
@@ -28,7 +26,7 @@ class UserRepositoryTests {
         userRepository.save(user);
 
         // when - action or the behaviour that we are going to test
-        User userDb = userRepository.findByEmail("john@gmail.com").get();
+        User userDb = userRepository.findByEmail("john@gmail.com");
 
         // then - verify the output
         assertThat(userDb).isNotNull();

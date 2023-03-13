@@ -1,26 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home | State Tax Calculator</title>
+    <title>Home | Income Tax Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
-    <div align="right">
-        <a class="button" href="./login">Login</a>
-        <a class="button" href="./sign_up">SignUp</a>
-    </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Income Tax Calculator</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link active" aria-current="page" href="/">Home</a>-->
+    <!--                </li>-->
+    <!--                <li class="nav-item">-->
+    <!--                    <a class="nav-link" href="#">Link</a>-->
+    <!--                </li>-->
+    <!--               -->
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Log In/Sign Up
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{./login}">Log In</a></li>
+                            <li><a class="dropdown-item" th:href="@{./sign_up}">Sign Up</a></li>
+    <!--                        <li><hr class="dropdown-divider"></li>-->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" th:href="@{./account}" role="button">Account</a>
+<!--                        <a class="nav-link" aria-current="page" th:href="@{./account}">Account</a>-->
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
     <div align="center">
-        <h1>
-            State Tax Calculator
-        </h1>
-    </div>
-    <div align="center">
-        <h2> Welcome to our State Tax Calculator page.</h2>
-        <h3> Here you can estimate the amount of state taxes you need to pay in your particular case.</h3>
+        <h3>Welcome to Income Tax Calculator.</h3>
+        <h4>Estimate the federal, state, FICA, additional medicare, total taxes, and effective tax rate depending on filling params.</h4>
+
+        <div style="border-style:solid; width:650px; padding: 20px;">
+            <form role="form" method="post" th:action="@{/calculate}" th:object="${fillingParametersDTO}" >
+                <div class="mb-3">
+                    <label for="home_year" class="form-label">Year</label>
+                    <select class="form-select" id="home_year" th:field="*{year}" aria-label="Default select example">
+                        <option th:each="p : ${listYear}" th:value="${p}" th:text="${p}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('year')}" class="text-danger"
+                       th:errors="*{year}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="home_state" class="form-label">State</label>
+                    <select class="form-select" id="home_state" th:field="*{state}" aria-label="Default select example">
+                        <option th:each="p : ${listState}" th:value="${p}" th:text="${p}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('state')}" class="text-danger"
+                       th:errors="*{state}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="home_fillingStatus" class="form-label">Filling Status</label>
+                    <select class="form-select" id="home_fillingStatus" th:field="*{fillingStatus}" aria-label="Default select example">
+                        <option th:each="p : ${listFillingStatus}" th:value="${p}" th:text="${p}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('fillingStatus')}" class="text-danger"
+                       th:errors="*{fillingStatus}"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="home_income" class="form-label">Income</label>
+                    <input type="text" th:field="*{income}" class="form-control" id="home_income"
+                           aria-label="Input your income">
+                    <p th:if="${#fields.hasErrors('income')}" class="text-danger"
+                       th:errors="*{income}"></p>
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate</button>
+            </form>
+        </div>
     </div>
 
+    <br><br><br>
+
+    <footer class="footer-copyright text-center bg-primary py-3"
+            style="position:fixed; height:50px; width:100%; button:0;">
+        <div>
+            <strong>
+                Copyright &copy; 2023 <a href="www.liubov.org">Income Tax Calculator</a>
+                All rights reserved.
+            </strong>
+        </div>
+    </footer>
 </body>
 </html>

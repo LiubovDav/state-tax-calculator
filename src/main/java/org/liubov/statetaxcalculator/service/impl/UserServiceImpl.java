@@ -6,22 +6,31 @@ import org.liubov.statetaxcalculator.mapper.UserMapper;
 import org.liubov.statetaxcalculator.model.User;
 import org.liubov.statetaxcalculator.repository.UserRepository;
 import org.liubov.statetaxcalculator.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserMapper userMapper;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userMapper = userMapper;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public List<UserDTO> findAll() {
+        return userMapper.convertToUserDTOList(userRepository.findAll());
+    }
 
     @Override
     public void save(UserDTO userDTO) {
@@ -31,12 +40,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean validate(String email, String password) {
-        User user = userRepository.findByEmail(email).get();
+        // todo: check Optional
+        User user = userRepository.findByEmail(email);
 
         if (user == null) {
             return false;
         }
 
         return passwordEncoder.matches(password, user.getPassword());
+    }
+
+    @Override
+    public UserDTO findByEmail(String email) {
+        return userMapper.convertToUserDTO(userRepository.findByEmail(email));
     }
 }
