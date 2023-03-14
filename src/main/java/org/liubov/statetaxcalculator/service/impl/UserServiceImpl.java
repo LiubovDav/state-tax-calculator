@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+//    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository) {
+//        this.userMapper = userMapper;
+//        this.userRepository = userRepository;
+//    }
+
     @Override
     public List<UserDTO> findAll() {
         return userMapper.convertToUserDTOList(userRepository.findAll());
@@ -40,7 +45,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean validate(String email, String password) {
-        // todo: check Optional
         User user = userRepository.findByEmail(email);
 
         if (user == null) {
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService {
         }
 
         return passwordEncoder.matches(password, user.getPassword());
+//        return true;
     }
 
     @Override

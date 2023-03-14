@@ -9,7 +9,9 @@ public class FillingParametersMapper {
 
     public FillingParameters convertToFillingParameters(FillingParametersDTO fillingParametersDTO) {
         FillingParameters fillingParameters = new FillingParameters();
-        fillingParameters.setUserId(fillingParametersDTO.getUserId());
+        // todo: uncomment
+//        fillingParameters.setUserId(fillingParametersDTO.getUserId());
+        fillingParameters.setUserId(1);
         fillingParameters.setYear(Integer.parseInt(fillingParametersDTO.getYear()));
         fillingParameters.setState(fillingParametersDTO.getState());
         fillingParameters.setFillingStatus(fillingParametersDTO.getFillingStatus());
@@ -20,6 +22,8 @@ public class FillingParametersMapper {
         fillingParameters.setAdditionalMedicareTaxAmount(fillingParametersDTO.getAdditionalMedicareTaxAmount());
         fillingParameters.setTotalTaxAmount(fillingParametersDTO.getTotalTaxAmount());
         fillingParameters.setEffectiveTaxRate(fillingParametersDTO.getEffectiveTaxRate());
+        fillingParameters.setCreatedOn(fillingParametersDTO.getCreatedOn());
+        fillingParameters.setUpdatedOn(fillingParametersDTO.getUpdatedOn());
 
         return fillingParameters;
     }
@@ -38,6 +42,8 @@ public class FillingParametersMapper {
         fillingParametersDTO.setAdditionalMedicareTaxAmount(fillingParameters.getAdditionalMedicareTaxAmount());
         fillingParametersDTO.setTotalTaxAmount(fillingParameters.getTotalTaxAmount());
         fillingParametersDTO.setEffectiveTaxRate(fillingParameters.getEffectiveTaxRate());
+        fillingParametersDTO.setCreatedOn(fillingParameters.getCreatedOn());
+        fillingParametersDTO.setUpdatedOn(fillingParameters.getUpdatedOn());
 
         return fillingParametersDTO;
     }

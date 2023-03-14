@@ -23,6 +23,7 @@ public class UserMapper {
         user.setEmail(userDTO.getEmail());
         // encode password
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+//        user.setPassword(user.getPassword());
         user.setCreatedOn(userDTO.getCreatedOn());
         user.setUpdatedOn(userDTO.getUpdatedOn());
 

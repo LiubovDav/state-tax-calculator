@@ -3,6 +3,8 @@ package org.liubov.statetaxcalculator.dto;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class FillingParametersDTO {
     private Integer id;
@@ -21,4 +23,6 @@ public class FillingParametersDTO {
     private Double additionalMedicareTaxAmount;
     private Double totalTaxAmount;
     private Double effectiveTaxRate;
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
 }

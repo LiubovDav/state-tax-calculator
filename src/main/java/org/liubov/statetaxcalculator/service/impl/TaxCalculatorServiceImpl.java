@@ -31,12 +31,6 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
             return 0.00;
         }
 
-        if (year != 2022 && year != 2023) {
-            year = 2022;
-        }
-
-        state = "California";
-
         List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFillingStatusOrderByBracketLowerDesc(year, state, fillingStatus);
 
         if (stateTaxBracketList != null && stateTaxBracketList.size() > 0) {
@@ -54,10 +48,6 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
 
     @Override
     public double calculateFederalTax(int year, String fillingStatus, int income) {
-        if (year != 2022 && year != 2023) {
-            year = 2022;
-        }
-
         List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFillingStatusOrderByBracketLowerDesc(year, fillingStatus);
 
         if (federalTaxBracketList != null && federalTaxBracketList.size() > 0) {

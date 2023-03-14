@@ -1,0 +1,25 @@
+body {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     font-family: 'Kumbh Sans', sans-serif;
+     scroll-behavior: smooth;
+     background-color: #aed4fc;
+}
+
+label {
+    display: inline-block;
+    width: 200px;
+    margin: 5px;
+    text-align: left;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+}
+
+input [type=text], input [type=password], select {
+    display: inline-block;
+    width: 200px;
+}

@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping
+@RequestMapping("/calculator")
 @Slf4j
 public class CalculatorController {
 
@@ -24,7 +24,7 @@ public class CalculatorController {
         this.fillingParametersService = fillingParametersService;
     }
 
-    @PostMapping("/calculate")
+    @PostMapping
     public String calculate(@ModelAttribute("fillingParametersDTO") FillingParametersDTO fillingParametersDTO,
                             BindingResult bindingResult, Model model) {
         log.info("Filling parameters = {}", fillingParametersDTO);
@@ -88,6 +88,6 @@ public class CalculatorController {
         model.addAttribute("listState", AppConstants.STATE_LIST);
         model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
 
-        return "result";
+        return "results";
     }
 }

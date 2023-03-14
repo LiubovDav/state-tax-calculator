@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 public class FillingParameters {
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Setter(value = AccessLevel.PRIVATE)
@@ -25,4 +28,8 @@ public class FillingParameters {
     private Double additionalMedicareTaxAmount;
     private Double totalTaxAmount;
     private Double effectiveTaxRate;
+    @CreationTimestamp
+    private LocalDateTime createdOn;
+    @UpdateTimestamp
+    private LocalDateTime updatedOn;
 }

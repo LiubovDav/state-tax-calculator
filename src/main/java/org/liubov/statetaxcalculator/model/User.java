@@ -27,5 +27,4 @@ public class User {
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-
 }
