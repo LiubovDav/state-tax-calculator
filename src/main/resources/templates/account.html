@@ -45,7 +45,7 @@
                 <label>E-mail:</label>
                 <input type="text" th:field="*{email}"><br>
                 <p th:if="${#fields.hasErrors('email')}" class="text-danger"
-                   th:errors="*{email}"></p>
+                   th:errors="*{email}"></p><br>
                 <button class="btn btn-primary" type="submit">Update</button>
             </form>
             <br><br><br>
@@ -62,7 +62,7 @@
                 <label>Confirm Password:</label>
                 <input type="password" th:field="*{password2}"><br>
                 <p th:if="${#fields.hasErrors('password2')}" class="text-danger"
-                   th:errors="*{password2}"></p>
+                   th:errors="*{password2}"></p><br>
                 <button class="btn btn-primary" type="submit">Set new password</button>
             </form>
         </div>
@@ -74,7 +74,7 @@
             style="position:fixed; height:50px; width:100%; button:0;">
         <div>
             <strong>
-                Copyright &copy; 2023 <a href="www.liubov.org">Income Tax Calculator</a>
+                Copyright &copy; 2023
                 All rights reserved.
             </strong>
         </div>

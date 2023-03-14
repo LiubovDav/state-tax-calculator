@@ -16,6 +16,12 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+      data-locations: "classpath:data-mysql.sql"
+
 #  security:
 #    user:
 #      name: admin

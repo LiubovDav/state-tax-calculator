@@ -3,6 +3,7 @@ package org.liubov.statetaxcalculator.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.liubov.statetaxcalculator.config.AppConstants;
 import org.liubov.statetaxcalculator.dto.FillingParametersDTO;
+import org.liubov.statetaxcalculator.exception.IncomeTaxCalculatorException;
 import org.liubov.statetaxcalculator.service.FillingParametersService;
 import org.liubov.statetaxcalculator.service.TaxCalculatorService;
 import org.springframework.stereotype.Controller;
@@ -53,15 +54,41 @@ public class CalculatorController {
             return "home";
         }
 
-        Double stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(fillingParametersDTO.getYear()),
-                fillingParametersDTO.getState(), fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+        Double stateTaxAmount = null;
+        try {
+            stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(fillingParametersDTO.getYear()),
+                    fillingParametersDTO.getState(), fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+        } catch (IncomeTaxCalculatorException e) {
+            bindingResult.rejectValue("income", null, e.getMessage());
+        }
         log.info("State tax amount = {}", stateTaxAmount);
         fillingParametersDTO.setStateTaxAmount(stateTaxAmount);
 
-        Double federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(fillingParametersDTO.getYear()),
-                fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+            model.addAttribute("listYear", AppConstants.YEAR_LIST);
+            model.addAttribute("listState", AppConstants.STATE_LIST);
+            model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+            return "redirect:/home";
+        }
+
+        Double federalTaxAmount = null;
+        try {
+            federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(fillingParametersDTO.getYear()),
+                    fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+        } catch (IncomeTaxCalculatorException e) {
+            bindingResult.rejectValue("income", null, e.getMessage());
+        }
         log.info("Federal tax amount = {}", federalTaxAmount);
         fillingParametersDTO.setFederalTaxAmount(federalTaxAmount);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+            model.addAttribute("listYear", AppConstants.YEAR_LIST);
+            model.addAttribute("listState", AppConstants.STATE_LIST);
+            model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+            return "redirect:/home";
+        }
 
         Double ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(fillingParametersDTO.getYear()),
                 Integer.parseInt(fillingParametersDTO.getIncome()));

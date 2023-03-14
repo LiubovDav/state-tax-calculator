@@ -1,6 +1,6 @@
 # state-tax-calculator
 
-Spring Boot app
+Spring Boot App
 
 GitHub: https://github.com/LiubovDav/state-tax-calculator
 
@@ -10,7 +10,7 @@ https://trends.google.com/trends/explore?date=all&geo=US&q=Mockflow,Lucidcharts,
 
 MySQL, Hibernate / Jakarta Persistence API (JPA) / Spring Data JPA
 
-HTML, CSS, JavaScript, TODO: jQuery, AJAX
+HTML, CSS, JavaScript, jQuery, AJAX
 
 Thymeleaf
 
@@ -40,8 +40,10 @@ https://www.h2database.com/html/advanced.html#keywords
 
 
 
+https://taxfoundation.org/state-income-tax-rates-2023/
+
+https://taxfoundation.org/2023-tax-brackets
+
 https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
 
-https://taxfoundation.org/2023-tax-brackets/?utm_term=federal%20tax%20brackets&utm_campaign=Tax+Data&utm_source=adwords&utm_medium=ppc&hsa_acc=7281195102&hsa_cam=15234024444&hsa_grp=133337495407&hsa_ad=629296323296&hsa_src=g&hsa_tgt=kwd-72633781&hsa_kw=federal%20tax%20brackets&hsa_mt=b&hsa_net=adwords&hsa_ver=3&gclid=Cj0KCQiA6rCgBhDVARIsAK1kGPJFOPZfScAlB1gKOdA6yGZCpqRQDKpoV0Ii82i4NxJZRT3x06CglEEaAnqUEALw_wcB
-
-
+https://en.wikipedia.org/wiki/Social_Security_Wage_Base

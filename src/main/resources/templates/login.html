@@ -44,7 +44,7 @@
                 <label>Password:</label>
                 <input type="password" th:field="*{password}"><br>
                 <p th:if="${#fields.hasErrors('password')}" class="text-danger"
-                   th:errors="*{password}"></p>
+                   th:errors="*{password}"></p><br>
                 <button class="btn btn-primary" type="submit">Login</button>
                 <span>Not registered yet? <a th:href="@{./sign_up}">Register/ Sign Up Here</a></span>
             </form>
@@ -57,7 +57,7 @@
             style="position:fixed; height:50px; width:100%; button:0;">
         <div>
             <strong>
-                Copyright &copy; 2023 <a href="www.liubov.org">Income Tax Calculator</a>
+                Copyright &copy; 2023
                 All rights reserved.
             </strong>
         </div>

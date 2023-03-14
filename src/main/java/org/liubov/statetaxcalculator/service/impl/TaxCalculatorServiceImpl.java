@@ -1,6 +1,7 @@
 package org.liubov.statetaxcalculator.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.liubov.statetaxcalculator.exception.IncomeTaxCalculatorException;
 import org.liubov.statetaxcalculator.model.FederalTaxBracket;
 import org.liubov.statetaxcalculator.model.StateTaxBracket;
 import org.liubov.statetaxcalculator.repository.FederalTaxBracketRepository;
@@ -24,11 +25,24 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateStateTax(int year, String state, String fillingStatus, int income) {
+    public double calculateStateTax(int year, String state, String fillingStatus, int income) throws IncomeTaxCalculatorException {
         if (state.equals("Alaska") || state.equals("Florida") || state.equals("Nevada")
                 || state.equals("New Hampshire") || state.equals("South Dakota") || state.equals("Tennessee")
                 || state.equals("Texas") || state.equals("Washington") || state.equals("Wyoming")) {
             return 0.00;
+        }
+
+        if (year != 2023) {
+            year = 2023;
+        }
+
+        state = "California";
+
+
+        if (fillingStatus.equals("Married filing jointly")) {
+            fillingStatus = "Married Filing Jointly";
+        } else {
+            fillingStatus = "Single Filer";
         }
 
         List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFillingStatusOrderByBracketLowerDesc(year, state, fillingStatus);
@@ -36,31 +50,31 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
         if (stateTaxBracketList != null && stateTaxBracketList.size() > 0) {
             for (StateTaxBracket stateTaxBracket : stateTaxBracketList) {
                 if (income >= stateTaxBracket.getBracketLower()) {
-                    return Math.round((stateTaxBracket.getAccumulatedAmount() + (income - stateTaxBracket.getBracketLower()) * stateTaxBracket.getRate()) * 100) / 100;
+                    return Math.round((stateTaxBracket.getAccumulatedAmount() + (income - stateTaxBracket.getBracketLower()) * stateTaxBracket.getRate() / 100) * 100) / 100;
                 }
             }
         }
 
-        // todo: implement
-//        throw new IncomeTaxCalculatorException("Not enough IRS data to process the request");
-        return Math.round(income * 0.12 * 100) / 100;
+        throw new IncomeTaxCalculatorException("Not enough IRS data to process the request");
     }
 
     @Override
-    public double calculateFederalTax(int year, String fillingStatus, int income) {
+    public double calculateFederalTax(int year, String fillingStatus, int income) throws IncomeTaxCalculatorException {
+        if (year != 2022 || year != 2023) {
+            year = 2023;
+        }
+
         List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFillingStatusOrderByBracketLowerDesc(year, fillingStatus);
 
         if (federalTaxBracketList != null && federalTaxBracketList.size() > 0) {
             for (FederalTaxBracket federalTaxBracket : federalTaxBracketList) {
                 if (income >= federalTaxBracket.getBracketLower()) {
-                    return Math.round((federalTaxBracket.getAccumulatedAmount() + (income - federalTaxBracket.getBracketLower()) * federalTaxBracket.getRate()) * 100) / 100;
+                    return Math.round((federalTaxBracket.getAccumulatedAmount() + (income - federalTaxBracket.getBracketLower()) * federalTaxBracket.getRate() / 100) * 100) / 100;
                 }
             }
         }
 
-        // todo: implement
-//        throw new IncomeTaxCalculatorException("Not enough IRS data to process the request");
-        return Math.round(income * 0.15 * 100) / 100;
+        throw new IncomeTaxCalculatorException("Not enough IRS data to process the request");
     }
 
     @Override

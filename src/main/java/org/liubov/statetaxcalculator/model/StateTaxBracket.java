@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class StateTaxBracket {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
     private Integer id;
     @Column(name = "my_year", nullable = false)

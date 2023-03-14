@@ -13,12 +13,12 @@ label {
     margin: 5px;
     text-align: left;
 }
-
+/*
 button {
     margin: 10px;
     padding: 10px;
 }
-
+*/
 input [type=text], input [type=password], select {
     display: inline-block;
     width: 200px;

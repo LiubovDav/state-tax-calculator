@@ -54,7 +54,6 @@
                     <th>Total Tax</th>
                     <th>Effective Tax Rate</th>
                     <th>Date</th>
-<!--                    <th>updatedOn</th>-->
                 </tr>
                 <tr th:each="p : ${fillingParametersDTOList}">
                     <td th:text="${p.year}"></td>
@@ -68,7 +67,6 @@
                     <td th:text="${p.totalTaxAmount}"></td>
                     <td th:text="${p.effectiveTaxRate}"></td>
                     <td th:text="${p.createdOn}"></td>
-<!--                    <td th:text="${p.updatedOn}"></td>-->
                 </tr>
             </table>
         </div>
@@ -76,20 +74,11 @@
 
     <br><br><br><br><br><br><br><br><br>
 
-<!--    <form action="#" th:action="@{/login/submit}" th:object="${userDTO}" method="post">-->
-<!--        <label>E-mail:</label>-->
-<!--        <input type="text" th:field="*{email}"><br>-->
-<!--        <label>Password:</label>-->
-<!--        <input type="password" th:field="*{password}"><br>-->
-
-<!--        <button class="btn btn-primary" type="submit">Submit</button>-->
-<!--    </form>-->
-
     <footer class="footer-copyright text-center bg-primary py-3"
             style="position:fixed; height:50px; width:100%; button:0;">
         <div>
             <strong>
-                Copyright &copy; 2023 <a href="www.liubov.org">Income Tax Calculator</a>
+                Copyright &copy; 2023
                 All rights reserved.
             </strong>
         </div>

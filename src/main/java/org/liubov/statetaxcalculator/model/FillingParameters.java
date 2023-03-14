@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 public class FillingParameters {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
     private Integer id;
     private Integer userId;

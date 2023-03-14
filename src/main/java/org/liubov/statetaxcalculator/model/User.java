@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
     private Integer id;
     @Column(nullable = false)

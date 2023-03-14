@@ -12,4 +12,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
-    defer-datasource-initialization: false
+#        defer-datasource-initialization: false
+  sql:
+    init:
+      mode: never
+      data-locations: "classpath:data-h2.sql"
+
