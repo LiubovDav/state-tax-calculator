@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/login2")
 @Slf4j
-public class LoginController {
+public class Login2Controller {
 
     private UserService userService;
 
-    public LoginController(UserService userService) {
+    public Login2Controller(UserService userService) {
         this.userService = userService;
     }
 
@@ -64,7 +64,7 @@ public class LoginController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/login";
+            return "redirect:/login2";
         }
 
         FilingParametersDTO filingParametersDTO = new FilingParametersDTO();

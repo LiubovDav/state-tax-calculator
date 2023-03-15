@@ -36,7 +36,7 @@
             <h1>
                 Login User
             </h1>
-            <form action="#" th:action="@{/login/submit}" th:object="${userDTO}" method="post">
+            <form action="#" th:action="@{/login2/submit}" th:object="${userDTO}" method="post">
                 <label>E-mail:</label>
                 <input type="text" th:field="*{email}"><br>
                 <p th:if="${#fields.hasErrors('email')}" class="text-danger"
