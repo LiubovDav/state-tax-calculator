@@ -19,7 +19,7 @@ public class FederalTaxBracketController {
     }
 
     @GetMapping("/find_test")
-    public List<FederalTaxBracket> findByYearAndFillingStatus() {
-       return federalTaxBracketService.findByYearAndFillingStatus("2022", "Single");
+    public List<FederalTaxBracket> findByYearAndFilingStatus() {
+       return federalTaxBracketService.findByYearAndFilingStatus("2022", "Single");
     }
 }

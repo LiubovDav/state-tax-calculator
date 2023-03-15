@@ -9,7 +9,7 @@ public class StateTaxBracketDTO {
     private Integer id;
     private Integer year;
     private String state;
-    private String fillingStatus;
+    private String filingStatus;
     private Integer bracketLower;
     private Integer bracketUpper;
     private Double accumulatedAmount;

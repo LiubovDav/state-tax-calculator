@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class FillingParameters {
+public class FilingParameters {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
@@ -20,7 +20,7 @@ public class FillingParameters {
     @Column(name = "my_year")
     private Integer year;
     private String state;
-    private String fillingStatus;
+    private String filingStatus;
     private Integer income;
     private Double stateTaxAmount;
     private Double federalTaxAmount;

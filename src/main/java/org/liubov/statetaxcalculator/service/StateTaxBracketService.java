@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface StateTaxBracketService {
 
-    List<StateTaxBracket> findByYearAndStateAndFillingStatus(String year, String state, String fillingStatus);
+    List<StateTaxBracket> findByYearAndStateAndFilingStatus(String year, String state, String filingStatus);
 }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class FederalTaxBracketDTO {
     private Integer id;
     private Integer year;
-    private String fillingStatus;
+    private String filingStatus;
     private Integer bracketLower;
     private Integer bracketUpper;
     private Double accumulatedAmount;

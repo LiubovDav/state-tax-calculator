@@ -54,10 +54,16 @@
 
     <div align="center">
         <h3>Welcome to Income Tax Calculator.</h3>
-        <h4>Estimate the federal, state, FICA, additional medicare, total taxes, and effective tax rate depending on filling params.</h4>
+        <h4>Estimate the federal, state, FICA, additional medicare, total taxes, and effective tax rate depending on filing params.</h4>
+
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">
+                You successfully logged out.
+            </div>
+        </div>
 
         <div style="border-style:solid; width:400px; padding: 20px;">
-            <form role="form" method="post" th:action="@{/calculator}" th:object="${fillingParametersDTO}" >
+            <form role="form" method="post" th:action="@{/calculator}" th:object="${filingParametersDTO}" >
                 <div class="mb-3">
                     <span for="home_year" class="form-label">Year</span>
                     <select class="form-select" id="home_year" th:field="*{year}" aria-label="Default select example">
@@ -75,12 +81,12 @@
                        th:errors="*{state}"></p>
                 </div>
                 <div class="mb-3">
-                    <span for="home_fillingStatus" class="form-label">Filling Status</span>
-                    <select class="form-select" id="home_fillingStatus" th:field="*{fillingStatus}" aria-label="Default select example">
-                        <option th:each="p : ${listFillingStatus}" th:value="${p}" th:text="${p}"></option>
+                    <span for="home_filingStatus" class="form-label">Filing Status</span>
+                    <select class="form-select" id="home_filingStatus" th:field="*{filingStatus}" aria-label="Default select example">
+                        <option th:each="p : ${listFilingStatus}" th:value="${p}" th:text="${p}"></option>
                     </select>
-                    <p th:if="${#fields.hasErrors('fillingStatus')}" class="text-danger"
-                       th:errors="*{fillingStatus}"></p>
+                    <p th:if="${#fields.hasErrors('filingStatus')}" class="text-danger"
+                       th:errors="*{filingStatus}"></p>
                 </div>
                 <div class="mb-3">
                     <span for="home_income" class="form-label">Income</span>

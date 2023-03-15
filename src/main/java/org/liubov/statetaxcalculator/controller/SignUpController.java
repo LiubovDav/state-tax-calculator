@@ -31,7 +31,7 @@ public class SignUpController {
         return "sign_up";
     }
 
-    @PostMapping("/submit")
+    @PostMapping
     public String signUpSubmit(@Valid @ModelAttribute("userDTO") UserDTO userDTO,
                                BindingResult bindingResult, Model model) {
         log.info("User = " + userDTO);

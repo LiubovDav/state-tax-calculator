@@ -31,6 +31,11 @@
                             <li><a class="dropdown-item" th:href="@{./sign_up}">Sign Up</a></li>
                         </ul>
                     </li>
+                    <li>&nbsp;&nbsp;</li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" th:href="@{./account}" role="button">Account</a>
+                    </li>
+                    <li>&nbsp;&nbsp;</li>
                 </ul>
             </div>
         </div>
@@ -40,12 +45,12 @@
         <h1>
             Calculations
         </h1>
-        <div th:if="${not#lists.isEmpty(fillingParametersDTOList)}">
+        <div th:if="${not#lists.isEmpty(filingParametersDTOList)}">
             <table class="table table-striped">
                 <tr>
                     <th>Year</th>
                     <th>State</th>
-                    <th>Filling Status</th>
+                    <th>Filing Status</th>
                     <th>Income</th>
                     <th>State Tax</th>
                     <th>Federal Tax</th>
@@ -55,10 +60,10 @@
                     <th>Effective Tax Rate</th>
                     <th>Date</th>
                 </tr>
-                <tr th:each="p : ${fillingParametersDTOList}">
+                <tr th:each="p : ${filingParametersDTOList}">
                     <td th:text="${p.year}"></td>
                     <td th:text="${p.state}"></td>
-                    <td th:text="${p.fillingStatus}"></td>
+                    <td th:text="${p.filingStatus}"></td>
                     <td th:text="${p.income}"></td>
                     <td th:text="${p.stateTaxAmount}"></td>
                     <td th:text="${p.federalTaxAmount}"></td>

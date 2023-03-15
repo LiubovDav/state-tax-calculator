@@ -19,7 +19,7 @@ public class FederalTaxBracketServiceImpl implements FederalTaxBracketService {
     }
 
     @Override
-    public List<FederalTaxBracket> findByYearAndFillingStatus(String year, String fillingStatus) {
-        return federalTaxBracketRepository.findByYearAndFillingStatusOrderByBracketLowerDesc(Integer.parseInt(year), fillingStatus);
+    public List<FederalTaxBracket> findByYearAndFilingStatus(String year, String filingStatus) {
+        return federalTaxBracketRepository.findByYearAndFilingStatusOrderByBracketLowerDesc(Integer.parseInt(year), filingStatus);
     }
 }

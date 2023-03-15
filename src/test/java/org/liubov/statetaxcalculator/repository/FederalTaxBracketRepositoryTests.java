@@ -16,13 +16,13 @@ class FederalTaxBracketRepositoryTests {
     @Autowired
     private FederalTaxBracketRepository federalTaxBracketRepository;
 
-    @DisplayName("JUnit test for find FederalTaxBracket list by year and filling status operation")
+    @DisplayName("JUnit test for find FederalTaxBracket list by year and filing status operation")
     @Test
-    void givenFederalTaxBracketList_whenFindByYearAndStateAndFillingStatus_thenReturnFederalTaxBracketList() {
+    void givenFederalTaxBracketList_whenFindByYearAndStateAndFilingStatus_thenReturnFederalTaxBracketList() {
         // given - precondition or setup
         FederalTaxBracket federalTaxBracket = new FederalTaxBracket();
         federalTaxBracket.setYear(2022);
-        federalTaxBracket.setFillingStatus("Single");
+        federalTaxBracket.setFilingStatus("Single");
         federalTaxBracket.setBracketLower(10_000);
         federalTaxBracket.setBracketUpper(20_000);
         federalTaxBracket.setAccumulatedAmount(12_312.00);
@@ -30,7 +30,7 @@ class FederalTaxBracketRepositoryTests {
 
         FederalTaxBracket federalTaxBracket2 = new FederalTaxBracket();
         federalTaxBracket2.setYear(2021);
-        federalTaxBracket2.setFillingStatus("Single");
+        federalTaxBracket2.setFilingStatus("Single");
         federalTaxBracket2.setBracketLower(10_000);
         federalTaxBracket2.setBracketUpper(20_000);
         federalTaxBracket2.setAccumulatedAmount(12_312.00);
@@ -38,7 +38,7 @@ class FederalTaxBracketRepositoryTests {
 
         FederalTaxBracket federalTaxBracket3 = new FederalTaxBracket();
         federalTaxBracket3.setYear(2022);
-        federalTaxBracket3.setFillingStatus("Single");
+        federalTaxBracket3.setFilingStatus("Single");
         federalTaxBracket3.setBracketLower(15_000);
         federalTaxBracket3.setBracketUpper(25_000);
         federalTaxBracket3.setAccumulatedAmount(12_312.00);
@@ -49,7 +49,7 @@ class FederalTaxBracketRepositoryTests {
         federalTaxBracketRepository.save(federalTaxBracket3);
 
         // when - action or the behaviour that we are going to test
-        List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFillingStatusOrderByBracketLowerDesc(2022, "Single");
+        List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFilingStatusOrderByBracketLowerDesc(2022, "Single");
 
         // then - verify the output
         assertThat(federalTaxBracketList).isNotNull();

@@ -21,7 +21,7 @@ public class StateTaxBracket {
     @Column(nullable = false)
     private String state;
     @Column(nullable = false)
-    private String fillingStatus;
+    private String filingStatus;
     @Column(nullable = false)
     private Integer bracketLower;
     @Column(nullable = false)

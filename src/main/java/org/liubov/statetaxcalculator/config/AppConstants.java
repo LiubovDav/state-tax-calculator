@@ -15,7 +15,7 @@ public class AppConstants {
             "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
             "West Virginia", "Wisconsin", "Wyoming");
 
-    public static final List<String> FILLING_STATUS_LIST = Arrays.asList("Select Filling Status", "Single",
+    public static final List<String> FILING_STATUS_LIST = Arrays.asList("Select Filing Status", "Single",
             "Married filing jointly", "Married filing separately", "Head of household");
 
 }

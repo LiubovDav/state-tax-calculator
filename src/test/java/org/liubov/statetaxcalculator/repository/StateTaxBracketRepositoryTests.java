@@ -15,14 +15,14 @@ class StateTaxBracketRepositoryTests {
     @Autowired
     private StateTaxBracketRepository stateTaxBracketRepository;
 
-    @DisplayName("JUnit test for find StateTaxBracket list by year and state and filling status operation")
+    @DisplayName("JUnit test for find StateTaxBracket list by year and state and filing status operation")
     @Test
-    void givenStateTaxBracketList_whenFindByYearAndStateAndFillingStatus_thenReturnStateTaxBracketList() {
+    void givenStateTaxBracketList_whenFindByYearAndStateAndFilingStatus_thenReturnStateTaxBracketList() {
         // given - precondition or setup
         StateTaxBracket stateTaxBracket = new StateTaxBracket();
         stateTaxBracket.setYear(2022);
         stateTaxBracket.setState("CA");
-        stateTaxBracket.setFillingStatus("Single");
+        stateTaxBracket.setFilingStatus("Single");
         stateTaxBracket.setBracketLower(10_000);
         stateTaxBracket.setBracketUpper(20_000);
         stateTaxBracket.setAccumulatedAmount(12_312.00);
@@ -31,7 +31,7 @@ class StateTaxBracketRepositoryTests {
         StateTaxBracket stateTaxBracket2 = new StateTaxBracket();
         stateTaxBracket2.setYear(2022);
         stateTaxBracket2.setState("CA");
-        stateTaxBracket2.setFillingStatus("Single");
+        stateTaxBracket2.setFilingStatus("Single");
         stateTaxBracket2.setBracketLower(10_000);
         stateTaxBracket2.setBracketUpper(20_000);
         stateTaxBracket2.setAccumulatedAmount(12_312.00);
@@ -40,7 +40,7 @@ class StateTaxBracketRepositoryTests {
         StateTaxBracket stateTaxBracket3 = new StateTaxBracket();
         stateTaxBracket3.setYear(2022);
         stateTaxBracket3.setState("NY");
-        stateTaxBracket3.setFillingStatus("Single");
+        stateTaxBracket3.setFilingStatus("Single");
         stateTaxBracket3.setBracketLower(15_000);
         stateTaxBracket3.setBracketUpper(25_000);
         stateTaxBracket3.setAccumulatedAmount(12_312.00);
@@ -51,7 +51,7 @@ class StateTaxBracketRepositoryTests {
         stateTaxBracketRepository.save(stateTaxBracket3);
 
         // when - action or the behaviour that we are going to test
-        List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFillingStatusOrderByBracketLowerDesc(2022, "CA", "Single");
+        List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFilingStatusOrderByBracketLowerDesc(2022, "CA", "Single");
 
         // then - verify the output
         assertThat(stateTaxBracketList).isNotNull();

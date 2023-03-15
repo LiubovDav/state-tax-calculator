@@ -19,7 +19,7 @@ public class StateTaxBracketServiceImpl implements StateTaxBracketService {
     }
 
     @Override
-    public List<StateTaxBracket> findByYearAndStateAndFillingStatus(String year, String state, String fillingStatus) {
-        return stateTaxBracketRepository.findByYearAndStateAndFillingStatusOrderByBracketLowerDesc(Integer.parseInt(year), state, fillingStatus);
+    public List<StateTaxBracket> findByYearAndStateAndFilingStatus(String year, String state, String filingStatus) {
+        return stateTaxBracketRepository.findByYearAndStateAndFilingStatusOrderByBracketLowerDesc(Integer.parseInt(year), state, filingStatus);
     }
 }

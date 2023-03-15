@@ -25,7 +25,7 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateStateTax(int year, String state, String fillingStatus, int income) throws IncomeTaxCalculatorException {
+    public double calculateStateTax(int year, String state, String filingStatus, int income) throws IncomeTaxCalculatorException {
         if (state.equals("Alaska") || state.equals("Florida") || state.equals("Nevada")
                 || state.equals("New Hampshire") || state.equals("South Dakota") || state.equals("Tennessee")
                 || state.equals("Texas") || state.equals("Washington") || state.equals("Wyoming")) {
@@ -39,13 +39,13 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
         state = "California";
 
 
-        if (fillingStatus.equals("Married filing jointly")) {
-            fillingStatus = "Married Filing Jointly";
+        if (filingStatus.equals("Married filing jointly")) {
+            filingStatus = "Married Filing Jointly";
         } else {
-            fillingStatus = "Single Filer";
+            filingStatus = "Single Filer";
         }
 
-        List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFillingStatusOrderByBracketLowerDesc(year, state, fillingStatus);
+        List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFilingStatusOrderByBracketLowerDesc(year, state, filingStatus);
 
         if (stateTaxBracketList != null && stateTaxBracketList.size() > 0) {
             for (StateTaxBracket stateTaxBracket : stateTaxBracketList) {
@@ -59,12 +59,12 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateFederalTax(int year, String fillingStatus, int income) throws IncomeTaxCalculatorException {
+    public double calculateFederalTax(int year, String filingStatus, int income) throws IncomeTaxCalculatorException {
         if (year != 2022 || year != 2023) {
             year = 2023;
         }
 
-        List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFillingStatusOrderByBracketLowerDesc(year, fillingStatus);
+        List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFilingStatusOrderByBracketLowerDesc(year, filingStatus);
 
         if (federalTaxBracketList != null && federalTaxBracketList.size() > 0) {
             for (FederalTaxBracket federalTaxBracket : federalTaxBracketList) {
@@ -95,8 +95,8 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateAdditionalMedicareTax(int year, String fillingStatus, int income) {
-        if (fillingStatus.equals("Single") || fillingStatus.equals("Married filing separately")) {
+    public double calculateAdditionalMedicareTax(int year, String filingStatus, int income) {
+        if (filingStatus.equals("Single") || filingStatus.equals("Married filing separately")) {
             if (income > 200_000) {
                 return Math.round((income - 200_000) * 0.9) / 100;
             }

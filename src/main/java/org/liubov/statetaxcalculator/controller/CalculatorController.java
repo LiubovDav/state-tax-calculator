@@ -2,9 +2,9 @@ package org.liubov.statetaxcalculator.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.liubov.statetaxcalculator.config.AppConstants;
-import org.liubov.statetaxcalculator.dto.FillingParametersDTO;
+import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
 import org.liubov.statetaxcalculator.exception.IncomeTaxCalculatorException;
-import org.liubov.statetaxcalculator.service.FillingParametersService;
+import org.liubov.statetaxcalculator.service.FilingParametersService;
 import org.liubov.statetaxcalculator.service.TaxCalculatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,102 +18,102 @@ public class CalculatorController {
 
     private TaxCalculatorService taxCalculatorService;
 
-    private FillingParametersService fillingParametersService;
+    private FilingParametersService filingParametersService;
 
-    public CalculatorController(TaxCalculatorService taxCalculatorService, FillingParametersService fillingParametersService) {
+    public CalculatorController(TaxCalculatorService taxCalculatorService, FilingParametersService filingParametersService) {
         this.taxCalculatorService = taxCalculatorService;
-        this.fillingParametersService = fillingParametersService;
+        this.filingParametersService = filingParametersService;
     }
 
     @PostMapping
-    public String calculate(@ModelAttribute("fillingParametersDTO") FillingParametersDTO fillingParametersDTO,
+    public String calculate(@ModelAttribute("filingParametersDTO") FilingParametersDTO filingParametersDTO,
                             BindingResult bindingResult, Model model) {
-        log.info("Filling parameters = {}", fillingParametersDTO);
+        log.info("Filing parameters = {}", filingParametersDTO);
 
-        if (fillingParametersDTO.getYear().equals("Select Year")) {
+        if (filingParametersDTO.getYear().equals("Select Year")) {
             bindingResult.rejectValue("year", null, "Please select year");
         }
 
-        if (fillingParametersDTO.getState().equals("Select State")) {
+        if (filingParametersDTO.getState().equals("Select State")) {
             bindingResult.rejectValue("state", null, "Please select state");
         }
 
-        if (fillingParametersDTO.getFillingStatus().equals("Select Filling Status")) {
-            bindingResult.rejectValue("fillingStatus", null, "Please select filling status");
+        if (filingParametersDTO.getFilingStatus().equals("Select Filing Status")) {
+            bindingResult.rejectValue("filingStatus", null, "Please select filing status");
         }
 
-        if (fillingParametersDTO.getIncome() == null || fillingParametersDTO.getIncome().equals("")) {
+        if (filingParametersDTO.getIncome() == null || filingParametersDTO.getIncome().equals("")) {
             bindingResult.rejectValue("income", null, "Income should not be empty");
         }
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+            model.addAttribute("filingParametersDTO", filingParametersDTO);
             model.addAttribute("listYear", AppConstants.YEAR_LIST);
             model.addAttribute("listState", AppConstants.STATE_LIST);
-            model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+            model.addAttribute("listFilingStatus", AppConstants.FILING_STATUS_LIST);
             return "home";
         }
 
         Double stateTaxAmount = null;
         try {
-            stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(fillingParametersDTO.getYear()),
-                    fillingParametersDTO.getState(), fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+            stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(filingParametersDTO.getYear()),
+                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(), Integer.parseInt(filingParametersDTO.getIncome()));
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
         log.info("State tax amount = {}", stateTaxAmount);
-        fillingParametersDTO.setStateTaxAmount(stateTaxAmount);
+        filingParametersDTO.setStateTaxAmount(stateTaxAmount);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+            model.addAttribute("filingParametersDTO", filingParametersDTO);
             model.addAttribute("listYear", AppConstants.YEAR_LIST);
             model.addAttribute("listState", AppConstants.STATE_LIST);
-            model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+            model.addAttribute("listFilingStatus", AppConstants.FILING_STATUS_LIST);
             return "redirect:/home";
         }
 
         Double federalTaxAmount = null;
         try {
-            federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(fillingParametersDTO.getYear()),
-                    fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+            federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(filingParametersDTO.getYear()),
+                    filingParametersDTO.getFilingStatus(), Integer.parseInt(filingParametersDTO.getIncome()));
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
         log.info("Federal tax amount = {}", federalTaxAmount);
-        fillingParametersDTO.setFederalTaxAmount(federalTaxAmount);
+        filingParametersDTO.setFederalTaxAmount(federalTaxAmount);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+            model.addAttribute("filingParametersDTO", filingParametersDTO);
             model.addAttribute("listYear", AppConstants.YEAR_LIST);
             model.addAttribute("listState", AppConstants.STATE_LIST);
-            model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+            model.addAttribute("listFilingStatus", AppConstants.FILING_STATUS_LIST);
             return "redirect:/home";
         }
 
-        Double ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(fillingParametersDTO.getYear()),
-                Integer.parseInt(fillingParametersDTO.getIncome()));
+        Double ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(filingParametersDTO.getYear()),
+                Integer.parseInt(filingParametersDTO.getIncome()));
         log.info("FICA tax amount = {}", ficaTaxAmount);
-        fillingParametersDTO.setFicaTaxAmount(ficaTaxAmount);
+        filingParametersDTO.setFicaTaxAmount(ficaTaxAmount);
 
-        Double additionalMedicareTaxAmount = taxCalculatorService.calculateAdditionalMedicareTax(Integer.parseInt(fillingParametersDTO.getYear()),
-                fillingParametersDTO.getFillingStatus(), Integer.parseInt(fillingParametersDTO.getIncome()));
+        Double additionalMedicareTaxAmount = taxCalculatorService.calculateAdditionalMedicareTax(Integer.parseInt(filingParametersDTO.getYear()),
+                filingParametersDTO.getFilingStatus(), Integer.parseInt(filingParametersDTO.getIncome()));
         log.info("Additional medicare tax amount = {}", additionalMedicareTaxAmount);
-        fillingParametersDTO.setAdditionalMedicareTaxAmount(additionalMedicareTaxAmount);
+        filingParametersDTO.setAdditionalMedicareTaxAmount(additionalMedicareTaxAmount);
 
         Double totalTaxAmount = stateTaxAmount + federalTaxAmount + ficaTaxAmount + additionalMedicareTaxAmount;
         log.info("Total tax amount = {}", totalTaxAmount);
-        fillingParametersDTO.setTotalTaxAmount(totalTaxAmount);
+        filingParametersDTO.setTotalTaxAmount(totalTaxAmount);
 
-        Double effectiveTaxRate = taxCalculatorService.calculateEffectiveTaxRate(totalTaxAmount, Integer.parseInt(fillingParametersDTO.getIncome()));
+        Double effectiveTaxRate = taxCalculatorService.calculateEffectiveTaxRate(totalTaxAmount, Integer.parseInt(filingParametersDTO.getIncome()));
         log.info("Effective tax rate = {}", effectiveTaxRate);
-        fillingParametersDTO.setEffectiveTaxRate(effectiveTaxRate);
+        filingParametersDTO.setEffectiveTaxRate(effectiveTaxRate);
 
-        fillingParametersService.save(fillingParametersDTO);
+        filingParametersService.save(filingParametersDTO);
 
-        model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+        model.addAttribute("filingParametersDTO", filingParametersDTO);
         model.addAttribute("listYear", AppConstants.YEAR_LIST);
         model.addAttribute("listState", AppConstants.STATE_LIST);
-        model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+        model.addAttribute("listFilingStatus", AppConstants.FILING_STATUS_LIST);
 
         return "results";
     }

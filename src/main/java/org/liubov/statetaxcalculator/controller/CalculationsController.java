@@ -1,8 +1,8 @@
 package org.liubov.statetaxcalculator.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.liubov.statetaxcalculator.dto.FillingParametersDTO;
-import org.liubov.statetaxcalculator.service.FillingParametersService;
+import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
+import org.liubov.statetaxcalculator.service.FilingParametersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +15,17 @@ import java.util.List;
 @Slf4j
 public class CalculationsController {
 
-    private FillingParametersService fillingParametersService;
+    private FilingParametersService filingParametersService;
 
-    public CalculationsController(FillingParametersService fillingParametersService) {
-        this.fillingParametersService = fillingParametersService;
+    public CalculationsController(FilingParametersService filingParametersService) {
+        this.filingParametersService = filingParametersService;
     }
 
     @GetMapping
     public String getList(Model model) {
-        List<FillingParametersDTO> fillingParametersDTOList = fillingParametersService.findByUserId(1);
+        List<FilingParametersDTO> filingParametersDTOList = filingParametersService.findByUserId(1);
 
-        model.addAttribute("fillingParametersDTOList", fillingParametersDTOList);
+        model.addAttribute("filingParametersDTOList", filingParametersDTOList);
 
         return "calculations";
     }

@@ -2,7 +2,7 @@ package org.liubov.statetaxcalculator.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.liubov.statetaxcalculator.config.AppConstants;
-import org.liubov.statetaxcalculator.dto.FillingParametersDTO;
+import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
 import org.liubov.statetaxcalculator.dto.UserDTO;
 import org.liubov.statetaxcalculator.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -33,11 +33,11 @@ public class LoginController {
         UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
 
-        FillingParametersDTO fillingParametersDTO = new FillingParametersDTO();
-        model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+        FilingParametersDTO filingParametersDTO = new FilingParametersDTO();
+        model.addAttribute("filingParametersDTO", filingParametersDTO);
         model.addAttribute("listYear", AppConstants.YEAR_LIST);
         model.addAttribute("listState", AppConstants.STATE_LIST);
-        model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+        model.addAttribute("listFilingStatus", AppConstants.FILING_STATUS_LIST);
 
         return "login";
     }
@@ -67,11 +67,11 @@ public class LoginController {
             return "redirect:/login";
         }
 
-        FillingParametersDTO fillingParametersDTO = new FillingParametersDTO();
-        model.addAttribute("fillingParametersDTO", fillingParametersDTO);
+        FilingParametersDTO filingParametersDTO = new FilingParametersDTO();
+        model.addAttribute("filingParametersDTO", filingParametersDTO);
         model.addAttribute("listYear", AppConstants.YEAR_LIST);
         model.addAttribute("listState", AppConstants.STATE_LIST);
-        model.addAttribute("listFillingStatus", AppConstants.FILLING_STATUS_LIST);
+        model.addAttribute("listFilingStatus", AppConstants.FILING_STATUS_LIST);
 
         return "home";
     }

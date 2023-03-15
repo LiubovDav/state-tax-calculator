@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface StateTaxBracketRepository extends JpaRepository<StateTaxBracket, Integer> {
 
-    List<StateTaxBracket> findByYearAndStateAndFillingStatusOrderByBracketLowerDesc(Integer year, String state, String fillingStatus);
+    List<StateTaxBracket> findByYearAndStateAndFilingStatusOrderByBracketLowerDesc(Integer year, String state, String filingStatus);
 }

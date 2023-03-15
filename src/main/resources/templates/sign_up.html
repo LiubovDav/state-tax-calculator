@@ -35,7 +35,7 @@
                     You have registered successfully
                 </div>
             </div>
-            <form action="#" th:action="@{/sign_up/submit}" th:object="${userDTO}" method="post">
+            <form action="#" th:action="@{/sign_up}" th:object="${userDTO}" method="post">
                 <label>Name:</label>
                 <input id="signUp__name" type="text" th:field="*{name}"><br>
                 <p th:if="${#fields.hasErrors('name')}" class="text-danger"
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
 
     <footer class="footer-copyright text-center bg-primary py-3"
             style="position:fixed; height:50px; width:100%; button:0;">

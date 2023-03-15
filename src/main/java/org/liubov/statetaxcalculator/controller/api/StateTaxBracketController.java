@@ -19,7 +19,7 @@ public class StateTaxBracketController {
     }
 
     @GetMapping("/find_test")
-    public List<StateTaxBracket> findByYearAndStateAndFillingStatus() {
-       return stateTaxBracketService.findByYearAndStateAndFillingStatus("2022", "CA", "Single");
+    public List<StateTaxBracket> findByYearAndStateAndFilingStatus() {
+       return stateTaxBracketService.findByYearAndStateAndFilingStatus("2022", "CA", "Single");
     }
 }

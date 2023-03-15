@@ -19,7 +19,7 @@ public class FederalTaxBracket {
     @Column(name = "my_year", nullable = false)
     private Integer year;
     @Column(nullable = false)
-    private String fillingStatus;
+    private String filingStatus;
     @Column(nullable = false)
     private Integer bracketLower;
     @Column(nullable = false)
