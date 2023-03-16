@@ -21,13 +21,14 @@ public class FilingParameters {
     private Integer year;
     private String state;
     private String filingStatus;
-    private Integer income;
+    private Double income;
     private Double stateTaxAmount;
     private Double federalTaxAmount;
     private Double ficaTaxAmount;
     private Double additionalMedicareTaxAmount;
     private Double totalTaxAmount;
     private Double effectiveTaxRate;
+    private Double afterTaxAmount;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp

@@ -57,7 +57,7 @@ public class CalculatorController {
         Double stateTaxAmount = null;
         try {
             stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(filingParametersDTO.getYear()),
-                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(), Integer.parseInt(filingParametersDTO.getIncome()));
+                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(), filingParametersDTO.getIncome());
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
@@ -75,7 +75,7 @@ public class CalculatorController {
         Double federalTaxAmount = null;
         try {
             federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(filingParametersDTO.getYear()),
-                    filingParametersDTO.getFilingStatus(), Integer.parseInt(filingParametersDTO.getIncome()));
+                    filingParametersDTO.getFilingStatus(), filingParametersDTO.getIncome());
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
@@ -91,22 +91,26 @@ public class CalculatorController {
         }
 
         Double ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(filingParametersDTO.getYear()),
-                Integer.parseInt(filingParametersDTO.getIncome()));
+                filingParametersDTO.getIncome());
         log.info("FICA tax amount = {}", ficaTaxAmount);
         filingParametersDTO.setFicaTaxAmount(ficaTaxAmount);
 
         Double additionalMedicareTaxAmount = taxCalculatorService.calculateAdditionalMedicareTax(Integer.parseInt(filingParametersDTO.getYear()),
-                filingParametersDTO.getFilingStatus(), Integer.parseInt(filingParametersDTO.getIncome()));
+                filingParametersDTO.getFilingStatus(), filingParametersDTO.getIncome());
         log.info("Additional medicare tax amount = {}", additionalMedicareTaxAmount);
         filingParametersDTO.setAdditionalMedicareTaxAmount(additionalMedicareTaxAmount);
 
-        Double totalTaxAmount = stateTaxAmount + federalTaxAmount + ficaTaxAmount + additionalMedicareTaxAmount;
+        Double totalTaxAmount = Math.round((stateTaxAmount + federalTaxAmount + ficaTaxAmount + additionalMedicareTaxAmount) * 100.0) / 100.0;
         log.info("Total tax amount = {}", totalTaxAmount);
         filingParametersDTO.setTotalTaxAmount(totalTaxAmount);
 
-        Double effectiveTaxRate = taxCalculatorService.calculateEffectiveTaxRate(totalTaxAmount, Integer.parseInt(filingParametersDTO.getIncome()));
+        Double effectiveTaxRate = taxCalculatorService.calculateEffectiveTaxRate(totalTaxAmount, filingParametersDTO.getIncome());
         log.info("Effective tax rate = {}", effectiveTaxRate);
         filingParametersDTO.setEffectiveTaxRate(effectiveTaxRate);
+
+        Double afterTaxAmount = filingParametersDTO.getIncome() - totalTaxAmount;
+        log.info("After tax amount = {}", afterTaxAmount);
+        filingParametersDTO.setAfterTaxAmount(afterTaxAmount);
 
         filingParametersService.save(filingParametersDTO);
 

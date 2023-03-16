@@ -58,24 +58,30 @@
                     <th>Medicare Tax</th>
                     <th>Total Tax</th>
                     <th>Effective Tax Rate</th>
+                    <th>After Tax Amount</th>
                     <th>Date</th>
                 </tr>
                 <tr th:each="p : ${filingParametersDTOList}">
                     <td th:text="${p.year}"></td>
                     <td th:text="${p.state}"></td>
                     <td th:text="${p.filingStatus}"></td>
-                    <td th:text="${p.income}"></td>
-                    <td th:text="${p.stateTaxAmount}"></td>
-                    <td th:text="${p.federalTaxAmount}"></td>
-                    <td th:text="${p.ficaTaxAmount}"></td>
-                    <td th:text="${p.additionalMedicareTaxAmount}"></td>
-                    <td th:text="${p.totalTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.income}"></td>
+                    <td class="numbers" th:text="${p.stateTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.federalTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.ficaTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.additionalMedicareTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.totalTaxAmount}"></td>
                     <td th:text="${p.effectiveTaxRate}"></td>
+                    <td class="numbers" th:text="${p.afterTaxAmount}"></td>
                     <td th:text="${p.createdOn}"></td>
                 </tr>
             </table>
         </div>
     </div>
+
+    <script>
+        $(".numbers").digits();
+    </script>
 
     <br><br><br><br><br><br><br><br><br>
 

@@ -23,7 +23,7 @@ public class FilingParametersController {
         filingParametersDTO.setYear("2022");
         filingParametersDTO.setState("CA");
         filingParametersDTO.setFilingStatus("Single");
-        filingParametersDTO.setIncome("150000");
+        filingParametersDTO.setIncome(150_000.0);
         filingParametersDTO.setStateTaxAmount(16_500.50);
         filingParametersDTO.setFederalTaxAmount(20_000.53);
         filingParametersDTO.setFicaTaxAmount(16_500.50);

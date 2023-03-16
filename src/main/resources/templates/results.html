@@ -56,7 +56,7 @@
                 </tr>
                 <tr>
                     <td align="right"><strong><span>Income: &nbsp;</span></strong></td>
-                    <td>$<span th:text="${filingParametersDTO.income}"></span></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.income}"></span></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -64,19 +64,19 @@
                 </tr>
                 <tr>
                     <td align="right"><strong><span>State Tax Amount: &nbsp;</span></strong></td>
-                    <td>$<span th:text="${filingParametersDTO.stateTaxAmount}"></span></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.stateTaxAmount}"></span></td>
                 </tr>
                 <tr>
                     <td align="right"><strong><span>Federal Tax Amount: &nbsp;</span></strong></td>
-                    <td>$<span th:text="${filingParametersDTO.federalTaxAmount}"></span></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.federalTaxAmount}"></span></td>
                 </tr>
                 <tr>
                     <td align="right"><strong><span>FICA Tax Amount: &nbsp;</span></strong></td>
-                    <td>$<span th:text="${filingParametersDTO.ficaTaxAmount}"></span></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.ficaTaxAmount}"></span></td>
                 </tr>
                 <tr>
                     <td align="right"><strong><span>Additional Medicare Tax Amount: &nbsp;</span></strong></td>
-                    <td>$<span th:text="${filingParametersDTO.additionalMedicareTaxAmount}"></span></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.additionalMedicareTaxAmount}"></span></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -84,15 +84,23 @@
                 </tr>
                 <tr>
                     <td align="right"><strong><span>Total Tax Amount: &nbsp;</span></strong></td>
-                    <td>$<span th:text="${filingParametersDTO.totalTaxAmount}"></span></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.totalTaxAmount}"></span></td>
                 </tr>
                 <tr>
                     <td align="right"><strong><span>Effective Tax Rate: &nbsp;</span></strong></td>
                     <td><span th:text="${filingParametersDTO.effectiveTaxRate}"></span>%</td>
                 </tr>
+                <tr>
+                    <td align="right"><strong><span>After Tax Amount: &nbsp;</span></strong></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.afterTaxAmount}"></span></td>
+                </tr>
             </table><br>
         </div>
     </div>
+
+    <script>
+        $(".numbers").digits();
+    </script>
 
     <br><br><br><br><br><br><br><br><br><br><br>
 
