@@ -8,6 +8,7 @@ import org.liubov.statetaxcalculator.repository.FilingParametersRepository;
 import org.liubov.statetaxcalculator.service.FilingParametersService;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,10 @@ public class FilingParametersImpl implements FilingParametersService {
     }
 
     @Override
-    public void save(FilingParametersDTO filingParametersDTO) {
-        filingParametersRepository.save(filingParametersMapper.convertToFilingParameters(filingParametersDTO));
+    public FilingParametersDTO save(FilingParametersDTO filingParametersDTO) throws ParseException {
+        FilingParameters filingParameters = filingParametersRepository.save(filingParametersMapper.toFilingParameters(filingParametersDTO));
         log.info("FilingParameters was successfully saved");
+        return filingParametersMapper.toFilingParametersDTO(filingParameters);
     }
 
     @Override
@@ -36,7 +38,7 @@ public class FilingParametersImpl implements FilingParametersService {
 
         List<FilingParameters> filingParametersList = filingParametersRepository.findByUserId(userId);
         for (FilingParameters filingParameters : filingParametersList) {
-            filingParametersDTOList.add(filingParametersMapper.convertToFilingParametersDTO(filingParameters));
+            filingParametersDTOList.add(filingParametersMapper.toFilingParametersDTO(filingParameters));
         }
 
         return filingParametersDTOList;

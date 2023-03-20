@@ -34,12 +34,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> findAll() {
-        return userMapper.convertToUserDTOList(userRepository.findAll());
+        return userMapper.toUserDTOList(userRepository.findAll());
     }
 
     @Override
     public void save(UserDTO userDTO) {
-        userRepository.save(userMapper.convertToUser(userDTO));
+        userRepository.save(userMapper.toUser(userDTO));
         log.info("User was successfully saved");
     }
 
@@ -57,6 +57,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findByEmail(String email) {
-        return userMapper.convertToUserDTO(userRepository.findByEmail(email));
+        return userMapper.toUserDTO(userRepository.findByEmail(email));
     }
 }

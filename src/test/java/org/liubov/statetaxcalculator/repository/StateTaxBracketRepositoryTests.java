@@ -6,9 +6,11 @@ import org.liubov.statetaxcalculator.model.StateTaxBracket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 @DataJpaTest
 class StateTaxBracketRepositoryTests {
 
@@ -23,28 +25,28 @@ class StateTaxBracketRepositoryTests {
         stateTaxBracket.setYear(2022);
         stateTaxBracket.setState("CA");
         stateTaxBracket.setFilingStatus("Single");
-        stateTaxBracket.setBracketLower(10_000);
-        stateTaxBracket.setBracketUpper(20_000);
-        stateTaxBracket.setAccumulatedAmount(12_312.00);
-        stateTaxBracket.setRate(15.54);
+        stateTaxBracket.setBracketLower(new BigDecimal(10_000));
+        stateTaxBracket.setBracketUpper(new BigDecimal(20_000));
+        stateTaxBracket.setAccumulatedAmount(new BigDecimal(12_312.00));
+        stateTaxBracket.setRate(new BigDecimal(15.54));
 
         StateTaxBracket stateTaxBracket2 = new StateTaxBracket();
         stateTaxBracket2.setYear(2022);
         stateTaxBracket2.setState("CA");
         stateTaxBracket2.setFilingStatus("Single");
-        stateTaxBracket2.setBracketLower(10_000);
-        stateTaxBracket2.setBracketUpper(20_000);
-        stateTaxBracket2.setAccumulatedAmount(12_312.00);
-        stateTaxBracket2.setRate(18.56);
+        stateTaxBracket2.setBracketLower(new BigDecimal(10_000));
+        stateTaxBracket2.setBracketUpper(new BigDecimal(20_000));
+        stateTaxBracket2.setAccumulatedAmount(new BigDecimal(12_312.00));
+        stateTaxBracket2.setRate(new BigDecimal(18.56));
 
         StateTaxBracket stateTaxBracket3 = new StateTaxBracket();
         stateTaxBracket3.setYear(2022);
         stateTaxBracket3.setState("NY");
         stateTaxBracket3.setFilingStatus("Single");
-        stateTaxBracket3.setBracketLower(15_000);
-        stateTaxBracket3.setBracketUpper(25_000);
-        stateTaxBracket3.setAccumulatedAmount(12_312.00);
-        stateTaxBracket3.setRate(13.46);
+        stateTaxBracket3.setBracketLower(new BigDecimal(15_000));
+        stateTaxBracket3.setBracketUpper(new BigDecimal(25_000));
+        stateTaxBracket3.setAccumulatedAmount(new BigDecimal(12_312.00));
+        stateTaxBracket3.setRate(new BigDecimal(13.46));
 
         stateTaxBracketRepository.save(stateTaxBracket);
         stateTaxBracketRepository.save(stateTaxBracket2);

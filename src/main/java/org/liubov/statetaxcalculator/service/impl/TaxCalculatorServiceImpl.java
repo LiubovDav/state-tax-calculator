@@ -9,6 +9,8 @@ import org.liubov.statetaxcalculator.repository.StateTaxBracketRepository;
 import org.liubov.statetaxcalculator.service.TaxCalculatorService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -25,11 +27,11 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateStateTax(int year, String state, String filingStatus, double income) throws IncomeTaxCalculatorException {
+    public BigDecimal calculateStateTax(int year, String state, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException {
         if (state.equals("Alaska") || state.equals("Florida") || state.equals("Nevada")
                 || state.equals("New Hampshire") || state.equals("South Dakota") || state.equals("Tennessee")
                 || state.equals("Texas") || state.equals("Washington") || state.equals("Wyoming")) {
-            return 0.00;
+            return new BigDecimal(0);
         }
 
         if (year != 2023) {
@@ -49,8 +51,9 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
 
         if (stateTaxBracketList != null && stateTaxBracketList.size() > 0) {
             for (StateTaxBracket stateTaxBracket : stateTaxBracketList) {
-                if (income >= stateTaxBracket.getBracketLower()) {
-                    return Math.round((stateTaxBracket.getAccumulatedAmount() + (income - stateTaxBracket.getBracketLower()) * stateTaxBracket.getRate() / 100) * 100) / 100.0;
+                if (income.compareTo(stateTaxBracket.getBracketLower()) >= 0) {
+                    return stateTaxBracket.getAccumulatedAmount().add(income.subtract(stateTaxBracket.getBracketLower()).multiply(stateTaxBracket.getRate().divide(new BigDecimal(100))))
+                            .setScale(2, BigDecimal.ROUND_HALF_UP);
                 }
             }
         }
@@ -59,7 +62,7 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateFederalTax(int year, String filingStatus, double income) throws IncomeTaxCalculatorException {
+    public BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException {
         if (year != 2022 || year != 2023) {
             year = 2023;
         }
@@ -68,8 +71,9 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
 
         if (federalTaxBracketList != null && federalTaxBracketList.size() > 0) {
             for (FederalTaxBracket federalTaxBracket : federalTaxBracketList) {
-                if (income >= federalTaxBracket.getBracketLower()) {
-                    return Math.round((federalTaxBracket.getAccumulatedAmount() + (income - federalTaxBracket.getBracketLower()) * federalTaxBracket.getRate() / 100) * 100) / 100.0;
+                if (income.compareTo(federalTaxBracket.getBracketLower()) >= 0) {
+                    return federalTaxBracket.getAccumulatedAmount().add(income.subtract(federalTaxBracket.getBracketLower()).multiply(federalTaxBracket.getRate().divide(new BigDecimal(100))))
+                            .setScale(2, BigDecimal.ROUND_HALF_UP);
                 }
             }
         }
@@ -78,39 +82,46 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public double calculateFicaTax(int year, double income) {
+    public BigDecimal calculateFicaTax(int year, BigDecimal income) {
         if (year == 2023) {
-            if (income < 160_200) {
-                return Math.round(income * 7.65) / 100.0;
+            if (income.compareTo(new BigDecimal(160_200)) < 0) {
+                return income.multiply(new BigDecimal(7.65).divide(new BigDecimal(100)))
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             } else {
-                return Math.round(160_200 * 7.65) / 100.0;
+                return new BigDecimal(160_200).multiply(new BigDecimal(7.65)).divide(new BigDecimal(100))
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             }
         } else {
-            if (income < 147_000) {
-                return Math.round(income * 7.65) / 100.0;
+            if (income.compareTo(new BigDecimal(147_000)) < 0) {
+                return income.multiply(new BigDecimal(7.65)).divide(new BigDecimal(100))
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             } else {
-                return Math.round(147_000 * 7.65) / 100.0;
+                return new BigDecimal(147_000).multiply(new BigDecimal(7.65)).divide(new BigDecimal(100))
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             }
         }
     }
 
     @Override
-    public double calculateAdditionalMedicareTax(int year, String filingStatus, double income) {
+    public BigDecimal calculateAdditionalMedicareTax(int year, String filingStatus, BigDecimal income) {
         if (filingStatus.equals("Single") || filingStatus.equals("Married filing separately")) {
-            if (income > 200_000) {
-                return Math.round((income - 200_000) * 0.9) / 100.0;
+            if (income.compareTo(new BigDecimal(200_000)) > 0) {
+                return (income.subtract(new BigDecimal(200_000)).multiply(new BigDecimal(0.9)).divide(new BigDecimal(100)))
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             }
         } else {
-            if (income > 250_000) {
-                return Math.round((income - 250_000) * 0.9) / 100.0;
+            if (income.compareTo(new BigDecimal(250_000)) > 0) {
+                return (income.subtract(new BigDecimal(250_000)).multiply(new BigDecimal(0.9)).divide(new BigDecimal(100)))
+                        .setScale(2, BigDecimal.ROUND_HALF_UP);
             }
         }
 
-        return 0.00;
+        return new BigDecimal(0.00);
     }
 
     @Override
-    public double calculateEffectiveTaxRate(double tax, double income) {
-        return Math.round(tax / income * 100 * 100) / 100.0;
+    public BigDecimal calculateEffectiveTaxRate(BigDecimal tax, BigDecimal income) {
+        return tax.divide(income, 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }

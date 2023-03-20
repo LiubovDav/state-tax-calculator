@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,13 +22,13 @@ public class FederalTaxBracket {
     @Column(nullable = false)
     private String filingStatus;
     @Column(nullable = false)
-    private Integer bracketLower;
+    private BigDecimal bracketLower;
     @Column(nullable = false)
-    private Integer bracketUpper;
+    private BigDecimal bracketUpper;
     @Column(nullable = false)
-    private Double accumulatedAmount;
+    private BigDecimal accumulatedAmount;
     @Column(nullable = false)
-    private Double rate;
+    private BigDecimal rate;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp

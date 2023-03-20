@@ -6,10 +6,14 @@ import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
 import org.liubov.statetaxcalculator.exception.IncomeTaxCalculatorException;
 import org.liubov.statetaxcalculator.service.FilingParametersService;
 import org.liubov.statetaxcalculator.service.TaxCalculatorService;
+import org.liubov.statetaxcalculator.util.DecimalUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
 
 @Controller
 @RequestMapping("/calculator")
@@ -27,7 +31,7 @@ public class CalculatorController {
 
     @PostMapping
     public String calculate(@ModelAttribute("filingParametersDTO") FilingParametersDTO filingParametersDTO,
-                            BindingResult bindingResult, Model model) {
+                            BindingResult bindingResult, Model model) throws ParseException {
         log.info("Filing parameters = {}", filingParametersDTO);
 
         if (filingParametersDTO.getYear().equals("Select Year")) {
@@ -54,15 +58,15 @@ public class CalculatorController {
             return "home";
         }
 
-        Double stateTaxAmount = null;
+        BigDecimal stateTaxAmount = null;
         try {
             stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(filingParametersDTO.getYear()),
-                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(), filingParametersDTO.getIncome());
+                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()));
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
         log.info("State tax amount = {}", stateTaxAmount);
-        filingParametersDTO.setStateTaxAmount(stateTaxAmount);
+        filingParametersDTO.setStateTaxAmount(DecimalUtil.toString(stateTaxAmount));
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("filingParametersDTO", filingParametersDTO);
@@ -72,15 +76,15 @@ public class CalculatorController {
             return "redirect:/home";
         }
 
-        Double federalTaxAmount = null;
+        BigDecimal federalTaxAmount = null;
         try {
             federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(filingParametersDTO.getYear()),
-                    filingParametersDTO.getFilingStatus(), filingParametersDTO.getIncome());
+                    filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()));
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
         log.info("Federal tax amount = {}", federalTaxAmount);
-        filingParametersDTO.setFederalTaxAmount(federalTaxAmount);
+        filingParametersDTO.setFederalTaxAmount(DecimalUtil.toString(federalTaxAmount));
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("filingParametersDTO", filingParametersDTO);
@@ -90,29 +94,29 @@ public class CalculatorController {
             return "redirect:/home";
         }
 
-        Double ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(filingParametersDTO.getYear()),
-                filingParametersDTO.getIncome());
+        BigDecimal ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(filingParametersDTO.getYear()),
+                new BigDecimal(filingParametersDTO.getIncome()));
         log.info("FICA tax amount = {}", ficaTaxAmount);
-        filingParametersDTO.setFicaTaxAmount(ficaTaxAmount);
+        filingParametersDTO.setFicaTaxAmount(DecimalUtil.toString(ficaTaxAmount));
 
-        Double additionalMedicareTaxAmount = taxCalculatorService.calculateAdditionalMedicareTax(Integer.parseInt(filingParametersDTO.getYear()),
-                filingParametersDTO.getFilingStatus(), filingParametersDTO.getIncome());
+        BigDecimal additionalMedicareTaxAmount = taxCalculatorService.calculateAdditionalMedicareTax(Integer.parseInt(filingParametersDTO.getYear()),
+                filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()));
         log.info("Additional medicare tax amount = {}", additionalMedicareTaxAmount);
-        filingParametersDTO.setAdditionalMedicareTaxAmount(additionalMedicareTaxAmount);
+        filingParametersDTO.setAdditionalMedicareTaxAmount(DecimalUtil.toString(additionalMedicareTaxAmount));
 
-        Double totalTaxAmount = Math.round((stateTaxAmount + federalTaxAmount + ficaTaxAmount + additionalMedicareTaxAmount) * 100.0) / 100.0;
+        BigDecimal totalTaxAmount = stateTaxAmount.add(federalTaxAmount).add(ficaTaxAmount).add(additionalMedicareTaxAmount);
         log.info("Total tax amount = {}", totalTaxAmount);
-        filingParametersDTO.setTotalTaxAmount(totalTaxAmount);
+        filingParametersDTO.setTotalTaxAmount(DecimalUtil.toString(totalTaxAmount));
 
-        Double effectiveTaxRate = taxCalculatorService.calculateEffectiveTaxRate(totalTaxAmount, filingParametersDTO.getIncome());
+        BigDecimal effectiveTaxRate = taxCalculatorService.calculateEffectiveTaxRate(totalTaxAmount, new BigDecimal(filingParametersDTO.getIncome()));
         log.info("Effective tax rate = {}", effectiveTaxRate);
-        filingParametersDTO.setEffectiveTaxRate(effectiveTaxRate);
+        filingParametersDTO.setEffectiveTaxRate(DecimalUtil.toString(effectiveTaxRate));
 
-        Double afterTaxAmount = filingParametersDTO.getIncome() - totalTaxAmount;
+        BigDecimal afterTaxAmount = new BigDecimal(filingParametersDTO.getIncome()).subtract(totalTaxAmount);
         log.info("After tax amount = {}", afterTaxAmount);
-        filingParametersDTO.setAfterTaxAmount(afterTaxAmount);
+        filingParametersDTO.setAfterTaxAmount(DecimalUtil.toString(afterTaxAmount));
 
-        filingParametersService.save(filingParametersDTO);
+        filingParametersDTO = filingParametersService.save(filingParametersDTO);
 
         model.addAttribute("filingParametersDTO", filingParametersDTO);
         model.addAttribute("listYear", AppConstants.YEAR_LIST);

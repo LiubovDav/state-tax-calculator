@@ -2,12 +2,15 @@ package org.liubov.statetaxcalculator.mapper;
 
 import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
 import org.liubov.statetaxcalculator.model.FilingParameters;
+import org.liubov.statetaxcalculator.util.DecimalUtil;
 import org.springframework.stereotype.Component;
+
+import java.text.ParseException;
 
 @Component
 public class FilingParametersMapper {
 
-    public FilingParameters convertToFilingParameters(FilingParametersDTO filingParametersDTO) {
+    public FilingParameters toFilingParameters(FilingParametersDTO filingParametersDTO) throws ParseException {
         FilingParameters filingParameters = new FilingParameters();
         // todo: uncomment
 //        filingParameters.setUserId(filingParametersDTO.getUserId());
@@ -15,35 +18,35 @@ public class FilingParametersMapper {
         filingParameters.setYear(Integer.parseInt(filingParametersDTO.getYear()));
         filingParameters.setState(filingParametersDTO.getState());
         filingParameters.setFilingStatus(filingParametersDTO.getFilingStatus());
-        filingParameters.setIncome(filingParametersDTO.getIncome());
-        filingParameters.setStateTaxAmount(filingParametersDTO.getStateTaxAmount());
-        filingParameters.setFederalTaxAmount(filingParametersDTO.getFederalTaxAmount());
-        filingParameters.setFicaTaxAmount(filingParametersDTO.getFicaTaxAmount());
-        filingParameters.setAdditionalMedicareTaxAmount(filingParametersDTO.getAdditionalMedicareTaxAmount());
-        filingParameters.setTotalTaxAmount(filingParametersDTO.getTotalTaxAmount());
-        filingParameters.setEffectiveTaxRate(filingParametersDTO.getEffectiveTaxRate());
-        filingParameters.setAfterTaxAmount(filingParametersDTO.getAfterTaxAmount());
+        filingParameters.setIncome(DecimalUtil.toBigDecimal(filingParametersDTO.getIncome()));
+        filingParameters.setStateTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getStateTaxAmount()));
+        filingParameters.setFederalTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getFederalTaxAmount()));
+        filingParameters.setFicaTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getFicaTaxAmount()));
+        filingParameters.setAdditionalMedicareTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getAdditionalMedicareTaxAmount()));
+        filingParameters.setTotalTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getTotalTaxAmount()));
+        filingParameters.setEffectiveTaxRate(DecimalUtil.toBigDecimal(filingParametersDTO.getEffectiveTaxRate()));
+        filingParameters.setAfterTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getAfterTaxAmount()));
         filingParameters.setCreatedOn(filingParametersDTO.getCreatedOn());
         filingParameters.setUpdatedOn(filingParametersDTO.getUpdatedOn());
 
         return filingParameters;
     }
 
-    public FilingParametersDTO convertToFilingParametersDTO(FilingParameters filingParameters) {
+    public FilingParametersDTO toFilingParametersDTO(FilingParameters filingParameters) {
         FilingParametersDTO filingParametersDTO = new FilingParametersDTO();
         filingParametersDTO.setId(filingParameters.getId());
         filingParametersDTO.setUserId(filingParameters.getUserId());
         filingParametersDTO.setYear("" + filingParameters.getYear());
         filingParametersDTO.setState(filingParameters.getState());
         filingParametersDTO.setFilingStatus(filingParameters.getFilingStatus());
-        filingParametersDTO.setIncome(filingParameters.getIncome());
-        filingParametersDTO.setStateTaxAmount(filingParameters.getStateTaxAmount());
-        filingParametersDTO.setFederalTaxAmount(filingParameters.getFederalTaxAmount());
-        filingParametersDTO.setFicaTaxAmount(filingParameters.getFicaTaxAmount());
-        filingParametersDTO.setAdditionalMedicareTaxAmount(filingParameters.getAdditionalMedicareTaxAmount());
-        filingParametersDTO.setTotalTaxAmount(filingParameters.getTotalTaxAmount());
-        filingParametersDTO.setEffectiveTaxRate(filingParameters.getEffectiveTaxRate());
-        filingParametersDTO.setAfterTaxAmount(filingParameters.getAfterTaxAmount());
+        filingParametersDTO.setIncome(DecimalUtil.toString(filingParameters.getIncome()));
+        filingParametersDTO.setStateTaxAmount(DecimalUtil.toString(filingParameters.getStateTaxAmount()));
+        filingParametersDTO.setFederalTaxAmount(DecimalUtil.toString(filingParameters.getFederalTaxAmount()));
+        filingParametersDTO.setFicaTaxAmount(DecimalUtil.toString(filingParameters.getFicaTaxAmount()));
+        filingParametersDTO.setAdditionalMedicareTaxAmount(DecimalUtil.toString(filingParameters.getAdditionalMedicareTaxAmount()));
+        filingParametersDTO.setTotalTaxAmount(DecimalUtil.toString(filingParameters.getTotalTaxAmount()));
+        filingParametersDTO.setEffectiveTaxRate(DecimalUtil.toString(filingParameters.getEffectiveTaxRate()));
+        filingParametersDTO.setAfterTaxAmount(DecimalUtil.toString(filingParameters.getAfterTaxAmount()));
         filingParametersDTO.setCreatedOn(filingParameters.getCreatedOn());
         filingParametersDTO.setUpdatedOn(filingParameters.getUpdatedOn());
 

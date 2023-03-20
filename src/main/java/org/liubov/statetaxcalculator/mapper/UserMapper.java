@@ -14,7 +14,7 @@ public class UserMapper {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User convertToUser(UserDTO userDTO) {
+    public User toUser(UserDTO userDTO) {
         if (userDTO == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class UserMapper {
         return user;
     }
 
-    public UserDTO convertToUserDTO(User user) {
+    public UserDTO toUserDTO(User user) {
         if (user == null) {
             return null;
         }
@@ -45,21 +45,21 @@ public class UserMapper {
         return userDTO;
     }
 
-    public List<User> convertToUserList(List<UserDTO> userDTOList) {
+    public List<User> toUserList(List<UserDTO> userDTOList) {
         List<User> userList = new ArrayList<>();
 
         for (UserDTO userDTO: userDTOList) {
-            userList.add(convertToUser(userDTO));
+            userList.add(toUser(userDTO));
         }
 
         return userList;
     }
 
-    public List<UserDTO> convertToUserDTOList(List<User> userList) {
+    public List<UserDTO> toUserDTOList(List<User> userList) {
         List<UserDTO> userDTOList = new ArrayList<>();
 
         for (User user: userList) {
-            userDTOList.add(convertToUserDTO(user));
+            userDTOList.add(toUserDTO(user));
         }
 
         return userDTOList;

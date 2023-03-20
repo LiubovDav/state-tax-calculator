@@ -2,11 +2,12 @@ package org.liubov.statetaxcalculator.service;
 
 import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface FilingParametersService {
 
-    void save(FilingParametersDTO filingParametersDTO);
+    FilingParametersDTO save(FilingParametersDTO filingParametersDTO) throws ParseException;
 
     List<FilingParametersDTO> findByUserId(Integer userId);
 }

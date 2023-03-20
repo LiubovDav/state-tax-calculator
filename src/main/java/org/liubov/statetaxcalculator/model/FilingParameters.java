@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,14 +22,14 @@ public class FilingParameters {
     private Integer year;
     private String state;
     private String filingStatus;
-    private Double income;
-    private Double stateTaxAmount;
-    private Double federalTaxAmount;
-    private Double ficaTaxAmount;
-    private Double additionalMedicareTaxAmount;
-    private Double totalTaxAmount;
-    private Double effectiveTaxRate;
-    private Double afterTaxAmount;
+    private BigDecimal income;
+    private BigDecimal stateTaxAmount;
+    private BigDecimal federalTaxAmount;
+    private BigDecimal ficaTaxAmount;
+    private BigDecimal additionalMedicareTaxAmount;
+    private BigDecimal totalTaxAmount;
+    private BigDecimal effectiveTaxRate;
+    private BigDecimal afterTaxAmount;
     @CreationTimestamp
     private LocalDateTime createdOn;
     @UpdateTimestamp

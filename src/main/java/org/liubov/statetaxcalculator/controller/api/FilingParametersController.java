@@ -4,6 +4,7 @@ import org.liubov.statetaxcalculator.dto.FilingParametersDTO;
 import org.liubov.statetaxcalculator.service.FilingParametersService;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -17,18 +18,18 @@ public class FilingParametersController {
     }
 
     @PostMapping("/save_test")
-    public void saveFilingParameters() {
+    public void saveFilingParameters() throws ParseException {
         FilingParametersDTO filingParametersDTO = new FilingParametersDTO();
         filingParametersDTO.setUserId(1);
         filingParametersDTO.setYear("2022");
         filingParametersDTO.setState("CA");
         filingParametersDTO.setFilingStatus("Single");
-        filingParametersDTO.setIncome(150_000.0);
-        filingParametersDTO.setStateTaxAmount(16_500.50);
-        filingParametersDTO.setFederalTaxAmount(20_000.53);
-        filingParametersDTO.setFicaTaxAmount(16_500.50);
-        filingParametersDTO.setAdditionalMedicareTaxAmount(20_000.53);
-        filingParametersDTO.setTotalTaxAmount(20_000.53);
+        filingParametersDTO.setIncome("150,000.00");
+        filingParametersDTO.setStateTaxAmount("16,500.50");
+        filingParametersDTO.setFederalTaxAmount("20,000.53");
+        filingParametersDTO.setFicaTaxAmount("16,500.50");
+        filingParametersDTO.setAdditionalMedicareTaxAmount("20,000.53");
+        filingParametersDTO.setTotalTaxAmount("20,000.53");
 
         filingParametersService.save(filingParametersDTO);
     }

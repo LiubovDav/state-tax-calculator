@@ -16,14 +16,14 @@ public class FilingParametersDTO {
     @NotEmpty(message = "Filing Status should be selected")
     private String filingStatus;
     @NotEmpty(message = "Income should not be empty")
-    private Double income;
-    private Double stateTaxAmount;
-    private Double federalTaxAmount;
-    private Double ficaTaxAmount;
-    private Double additionalMedicareTaxAmount;
-    private Double totalTaxAmount;
-    private Double effectiveTaxRate;
-    private Double afterTaxAmount;
+    private String income;
+    private String stateTaxAmount;
+    private String federalTaxAmount;
+    private String ficaTaxAmount;
+    private String additionalMedicareTaxAmount;
+    private String totalTaxAmount;
+    private String effectiveTaxRate;
+    private String afterTaxAmount;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 }

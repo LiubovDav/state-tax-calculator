@@ -2,15 +2,17 @@ package org.liubov.statetaxcalculator.service;
 
 import org.liubov.statetaxcalculator.exception.IncomeTaxCalculatorException;
 
+import java.math.BigDecimal;
+
 public interface TaxCalculatorService {
 
-    double calculateStateTax(int year, String state, String filingStatus, double income) throws IncomeTaxCalculatorException;
+    BigDecimal calculateStateTax(int year, String state, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException;
 
-    double calculateFederalTax(int year, String filingStatus, double income) throws IncomeTaxCalculatorException;
+    BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException;
 
-    double calculateFicaTax(int year, double income);
+    BigDecimal calculateFicaTax(int year, BigDecimal income);
 
-    double calculateAdditionalMedicareTax(int year, String filingStatus, double income);
+    BigDecimal calculateAdditionalMedicareTax(int year, String filingStatus, BigDecimal income);
 
-    double calculateEffectiveTaxRate(double tax, double income);
+    BigDecimal calculateEffectiveTaxRate(BigDecimal tax, BigDecimal income);
 }
