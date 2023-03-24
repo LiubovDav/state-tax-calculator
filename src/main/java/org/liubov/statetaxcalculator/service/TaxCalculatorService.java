@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 public interface TaxCalculatorService {
 
-    BigDecimal calculateStateTax(int year, String state, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException;
+    BigDecimal calculateStateTax(int year, String state, String filingStatus, BigDecimal income, BigDecimal contribution401K) throws IncomeTaxCalculatorException;
 
-    BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException;
+    BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income, BigDecimal contribution401K) throws IncomeTaxCalculatorException;
 
     BigDecimal calculateSocialSecurityTax(int year, BigDecimal income);
 

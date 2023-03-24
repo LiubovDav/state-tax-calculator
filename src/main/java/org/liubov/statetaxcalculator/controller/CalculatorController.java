@@ -61,7 +61,8 @@ public class CalculatorController {
         BigDecimal stateTaxAmount = null;
         try {
             stateTaxAmount = taxCalculatorService.calculateStateTax(Integer.parseInt(filingParametersDTO.getYear()),
-                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()));
+                    filingParametersDTO.getState(), filingParametersDTO.getFilingStatus(),
+                    new BigDecimal(filingParametersDTO.getIncome()), new BigDecimal(filingParametersDTO.getContribution401K()));
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
@@ -79,7 +80,8 @@ public class CalculatorController {
         BigDecimal federalTaxAmount = null;
         try {
             federalTaxAmount = taxCalculatorService.calculateFederalTax(Integer.parseInt(filingParametersDTO.getYear()),
-                    filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()));
+                    filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()),
+                    new BigDecimal(filingParametersDTO.getContribution401K()));
         } catch (IncomeTaxCalculatorException e) {
             bindingResult.rejectValue("income", null, e.getMessage());
         }
@@ -109,7 +111,8 @@ public class CalculatorController {
         log.info("Additional medicare tax amount = {}", additionalMedicareTaxAmount);
         filingParametersDTO.setAdditionalMedicareTaxAmount(DecimalUtil.toString(additionalMedicareTaxAmount));
 
-        BigDecimal totalTaxAmount = stateTaxAmount.add(federalTaxAmount).add(medicareTaxAmount).add(additionalMedicareTaxAmount);
+        BigDecimal totalTaxAmount = stateTaxAmount.add(federalTaxAmount).add(socialSecurityTaxAmount).add(medicareTaxAmount)
+                .add(additionalMedicareTaxAmount);
         log.info("Total tax amount = {}", totalTaxAmount);
         filingParametersDTO.setTotalTaxAmount(DecimalUtil.toString(totalTaxAmount));
 
