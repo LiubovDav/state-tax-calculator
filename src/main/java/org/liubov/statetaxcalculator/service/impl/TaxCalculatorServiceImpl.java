@@ -27,7 +27,7 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public BigDecimal calculateStateTax(int year, String state, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException {
+    public BigDecimal calculateStateTax(int year, String state, String filingStatus, BigDecimal income, BigDecimal contribution401K) throws IncomeTaxCalculatorException {
         if (state.equals("Alaska") || state.equals("Florida") || state.equals("Nevada")
                 || state.equals("New Hampshire") || state.equals("South Dakota") || state.equals("Tennessee")
                 || state.equals("Texas") || state.equals("Washington") || state.equals("Wyoming")) {
@@ -47,12 +47,14 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
             filingStatus = "Single Filer";
         }
 
+        BigDecimal adjustedIncome = income.subtract(contribution401K);
+
         List<StateTaxBracket> stateTaxBracketList = stateTaxBracketRepository.findByYearAndStateAndFilingStatusOrderByBracketLowerDesc(year, state, filingStatus);
 
         if (stateTaxBracketList != null && stateTaxBracketList.size() > 0) {
             for (StateTaxBracket stateTaxBracket : stateTaxBracketList) {
-                if (income.compareTo(stateTaxBracket.getBracketLower()) >= 0) {
-                    return stateTaxBracket.getAccumulatedAmount().add(income.subtract(stateTaxBracket.getBracketLower()).multiply(stateTaxBracket.getRate().divide(new BigDecimal(100.00))))
+                if (adjustedIncome.compareTo(stateTaxBracket.getBracketLower()) >= 0) {
+                    return stateTaxBracket.getAccumulatedAmount().add(adjustedIncome.subtract(stateTaxBracket.getBracketLower()).multiply(stateTaxBracket.getRate().divide(new BigDecimal(100.00))))
                             .setScale(2, BigDecimal.ROUND_HALF_UP);
                 }
             }
@@ -62,17 +64,19 @@ public class TaxCalculatorServiceImpl implements TaxCalculatorService {
     }
 
     @Override
-    public BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException {
+    public BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income, BigDecimal contribution401K) throws IncomeTaxCalculatorException {
         if (year != 2022 || year != 2023) {
             year = 2023;
         }
+
+        BigDecimal adjustedIncome = income.subtract(contribution401K);
 
         List<FederalTaxBracket> federalTaxBracketList = federalTaxBracketRepository.findByYearAndFilingStatusOrderByBracketLowerDesc(year, filingStatus);
 
         if (federalTaxBracketList != null && federalTaxBracketList.size() > 0) {
             for (FederalTaxBracket federalTaxBracket : federalTaxBracketList) {
-                if (income.compareTo(federalTaxBracket.getBracketLower()) >= 0) {
-                    return federalTaxBracket.getAccumulatedAmount().add(income.subtract(federalTaxBracket.getBracketLower()).multiply(federalTaxBracket.getRate().divide(new BigDecimal(100.00))))
+                if (adjustedIncome.compareTo(federalTaxBracket.getBracketLower()) >= 0) {
+                    return federalTaxBracket.getAccumulatedAmount().add(adjustedIncome.subtract(federalTaxBracket.getBracketLower()).multiply(federalTaxBracket.getRate().divide(new BigDecimal(100.00))))
                             .setScale(2, BigDecimal.ROUND_HALF_UP);
                 }
             }
