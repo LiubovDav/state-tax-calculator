@@ -19,9 +19,11 @@ public class FilingParametersMapper {
         filingParameters.setState(filingParametersDTO.getState());
         filingParameters.setFilingStatus(filingParametersDTO.getFilingStatus());
         filingParameters.setIncome(DecimalUtil.toBigDecimal(filingParametersDTO.getIncome()));
+        filingParameters.setContribution401K(DecimalUtil.toBigDecimal(filingParametersDTO.getContribution401K()));
         filingParameters.setStateTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getStateTaxAmount()));
         filingParameters.setFederalTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getFederalTaxAmount()));
-        filingParameters.setFicaTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getFicaTaxAmount()));
+        filingParameters.setSocialSecurityTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getSocialSecurityTaxAmount()));
+        filingParameters.setMedicareTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getMedicareTaxAmount()));
         filingParameters.setAdditionalMedicareTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getAdditionalMedicareTaxAmount()));
         filingParameters.setTotalTaxAmount(DecimalUtil.toBigDecimal(filingParametersDTO.getTotalTaxAmount()));
         filingParameters.setEffectiveTaxRate(DecimalUtil.toBigDecimal(filingParametersDTO.getEffectiveTaxRate()));
@@ -40,9 +42,11 @@ public class FilingParametersMapper {
         filingParametersDTO.setState(filingParameters.getState());
         filingParametersDTO.setFilingStatus(filingParameters.getFilingStatus());
         filingParametersDTO.setIncome(DecimalUtil.toString(filingParameters.getIncome()));
+        filingParametersDTO.setContribution401K(DecimalUtil.toString(filingParameters.getContribution401K()));
         filingParametersDTO.setStateTaxAmount(DecimalUtil.toString(filingParameters.getStateTaxAmount()));
         filingParametersDTO.setFederalTaxAmount(DecimalUtil.toString(filingParameters.getFederalTaxAmount()));
-        filingParametersDTO.setFicaTaxAmount(DecimalUtil.toString(filingParameters.getFicaTaxAmount()));
+        filingParametersDTO.setSocialSecurityTaxAmount(DecimalUtil.toString(filingParameters.getSocialSecurityTaxAmount()));
+        filingParametersDTO.setMedicareTaxAmount(DecimalUtil.toString(filingParameters.getMedicareTaxAmount()));
         filingParametersDTO.setAdditionalMedicareTaxAmount(DecimalUtil.toString(filingParameters.getAdditionalMedicareTaxAmount()));
         filingParametersDTO.setTotalTaxAmount(DecimalUtil.toString(filingParameters.getTotalTaxAmount()));
         filingParametersDTO.setEffectiveTaxRate(DecimalUtil.toString(filingParameters.getEffectiveTaxRate()));

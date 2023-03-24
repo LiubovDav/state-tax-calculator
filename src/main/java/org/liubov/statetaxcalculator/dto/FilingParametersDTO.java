@@ -17,9 +17,11 @@ public class FilingParametersDTO {
     private String filingStatus;
     @NotEmpty(message = "Income should not be empty")
     private String income;
+    private String contribution401K;
     private String stateTaxAmount;
     private String federalTaxAmount;
-    private String ficaTaxAmount;
+    private String socialSecurityTaxAmount;
+    private String medicareTaxAmount;
     private String additionalMedicareTaxAmount;
     private String totalTaxAmount;
     private String effectiveTaxRate;

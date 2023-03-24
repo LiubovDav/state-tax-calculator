@@ -23,9 +23,11 @@ public class FilingParameters {
     private String state;
     private String filingStatus;
     private BigDecimal income;
+    private BigDecimal contribution401K;
     private BigDecimal stateTaxAmount;
     private BigDecimal federalTaxAmount;
-    private BigDecimal ficaTaxAmount;
+    private BigDecimal socialSecurityTaxAmount;
+    private BigDecimal medicareTaxAmount;
     private BigDecimal additionalMedicareTaxAmount;
     private BigDecimal totalTaxAmount;
     private BigDecimal effectiveTaxRate;

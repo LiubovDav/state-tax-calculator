@@ -94,17 +94,22 @@ public class CalculatorController {
             return "redirect:/home";
         }
 
-        BigDecimal ficaTaxAmount = taxCalculatorService.calculateFicaTax(Integer.parseInt(filingParametersDTO.getYear()),
+        BigDecimal socialSecurityTaxAmount = taxCalculatorService.calculateSocialSecurityTax(Integer.parseInt(filingParametersDTO.getYear()),
                 new BigDecimal(filingParametersDTO.getIncome()));
-        log.info("FICA tax amount = {}", ficaTaxAmount);
-        filingParametersDTO.setFicaTaxAmount(DecimalUtil.toString(ficaTaxAmount));
+        log.info("Social Security tax amount = {}", socialSecurityTaxAmount);
+        filingParametersDTO.setSocialSecurityTaxAmount(DecimalUtil.toString(socialSecurityTaxAmount));
+
+        BigDecimal medicareTaxAmount = taxCalculatorService.calculateMedicareTax(Integer.parseInt(filingParametersDTO.getYear()),
+                new BigDecimal(filingParametersDTO.getIncome()));
+        log.info("Medicare tax amount = {}", medicareTaxAmount);
+        filingParametersDTO.setMedicareTaxAmount(DecimalUtil.toString(medicareTaxAmount));
 
         BigDecimal additionalMedicareTaxAmount = taxCalculatorService.calculateAdditionalMedicareTax(Integer.parseInt(filingParametersDTO.getYear()),
                 filingParametersDTO.getFilingStatus(), new BigDecimal(filingParametersDTO.getIncome()));
         log.info("Additional medicare tax amount = {}", additionalMedicareTaxAmount);
         filingParametersDTO.setAdditionalMedicareTaxAmount(DecimalUtil.toString(additionalMedicareTaxAmount));
 
-        BigDecimal totalTaxAmount = stateTaxAmount.add(federalTaxAmount).add(ficaTaxAmount).add(additionalMedicareTaxAmount);
+        BigDecimal totalTaxAmount = stateTaxAmount.add(federalTaxAmount).add(medicareTaxAmount).add(additionalMedicareTaxAmount);
         log.info("Total tax amount = {}", totalTaxAmount);
         filingParametersDTO.setTotalTaxAmount(DecimalUtil.toString(totalTaxAmount));
 

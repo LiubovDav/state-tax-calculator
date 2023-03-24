@@ -26,8 +26,9 @@ public class FilingParametersController {
         filingParametersDTO.setFilingStatus("Single");
         filingParametersDTO.setIncome("150,000.00");
         filingParametersDTO.setStateTaxAmount("16,500.50");
+        filingParametersDTO.setSocialSecurityTaxAmount("16,500.50");
         filingParametersDTO.setFederalTaxAmount("20,000.53");
-        filingParametersDTO.setFicaTaxAmount("16,500.50");
+        filingParametersDTO.setMedicareTaxAmount("16,500.50");
         filingParametersDTO.setAdditionalMedicareTaxAmount("20,000.53");
         filingParametersDTO.setTotalTaxAmount("20,000.53");
 

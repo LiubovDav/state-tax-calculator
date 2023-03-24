@@ -54,7 +54,7 @@
 
     <div align="center">
         <h3>Welcome to Income Tax Calculator.</h3>
-        <h4>Estimate the federal, state, FICA, additional medicare, total taxes, and effective tax rate depending on filing params.</h4>
+        <h4>Estimate the federal, state, social security, medicare, additional medicare, total taxes, and effective tax rate depending on filing params.</h4>
 
         <div th:if="${param.logout}">
             <div class="alert alert-info">
@@ -94,6 +94,13 @@
                            aria-label="Input your income">
                     <p th:if="${#fields.hasErrors('income')}" class="text-danger"
                        th:errors="*{income}"></p>
+                </div>
+                <div class="mb-3">
+                    <span for="home_contribution401K" class="form-label">Contribution 401K</span>
+                    <input type="text" th:field="*{contribution401K}" class="form-control" id="home_contribution401K"
+                           aria-label="Input yourCcontribution 401K">
+                    <p th:if="${#fields.hasErrors('contribution401K')}" class="text-danger"
+                       th:errors="*{contribution401K}"></p>
                 </div>
                 <button type="submit" class="btn btn-primary">Calculate</button>
             </form>

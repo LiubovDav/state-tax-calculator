@@ -10,7 +10,9 @@ public interface TaxCalculatorService {
 
     BigDecimal calculateFederalTax(int year, String filingStatus, BigDecimal income) throws IncomeTaxCalculatorException;
 
-    BigDecimal calculateFicaTax(int year, BigDecimal income);
+    BigDecimal calculateSocialSecurityTax(int year, BigDecimal income);
+
+    BigDecimal calculateMedicareTax(int year, BigDecimal income);
 
     BigDecimal calculateAdditionalMedicareTax(int year, String filingStatus, BigDecimal income);
 

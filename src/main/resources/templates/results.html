@@ -59,6 +59,10 @@
                     <td>$<span class="numbers" th:text="${filingParametersDTO.income}"></span></td>
                 </tr>
                 <tr>
+                    <td align="right"><strong><span>Contribution 401K: </span></strong></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.contribution401K}"></span></td>
+                </tr>
+                <tr>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
@@ -71,8 +75,12 @@
                     <td>$<span class="numbers" th:text="${filingParametersDTO.federalTaxAmount}"></span></td>
                 </tr>
                 <tr>
-                    <td align="right"><strong><span>FICA Tax Amount: &nbsp;</span></strong></td>
-                    <td>$<span class="numbers" th:text="${filingParametersDTO.ficaTaxAmount}"></span></td>
+                    <td align="right"><strong><span>Social Security Tax Amount: &nbsp;</span></strong></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.socialSecurityTaxAmount}"></span></td>
+                </tr>
+                <tr>
+                    <td align="right"><strong><span>Medicare Tax Amount: &nbsp;</span></strong></td>
+                    <td>$<span class="numbers" th:text="${filingParametersDTO.medicareTaxAmount}"></span></td>
                 </tr>
                 <tr>
                     <td align="right"><strong><span>Additional Medicare Tax Amount: &nbsp;</span></strong></td>

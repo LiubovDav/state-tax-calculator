@@ -54,10 +54,11 @@
                     <th>Income</th>
                     <th>State Tax</th>
                     <th>Federal Tax</th>
-                    <th>FICA Tax</th>
+                    <th>Social Security Tax</th>
                     <th>Medicare Tax</th>
+                    <th>Additional Medicare Tax</th>
                     <th>Total Tax</th>
-                    <th>Effective Tax Rate</th>
+                    <th>Effective Tax Rate, %</th>
                     <th>After Tax Amount</th>
                     <th>Date</th>
                 </tr>
@@ -68,7 +69,8 @@
                     <td class="numbers" th:text="${p.income}"></td>
                     <td class="numbers" th:text="${p.stateTaxAmount}"></td>
                     <td class="numbers" th:text="${p.federalTaxAmount}"></td>
-                    <td class="numbers" th:text="${p.ficaTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.socialSecurityTaxAmount}"></td>
+                    <td class="numbers" th:text="${p.medicareTaxAmount}"></td>
                     <td class="numbers" th:text="${p.additionalMedicareTaxAmount}"></td>
                     <td class="numbers" th:text="${p.totalTaxAmount}"></td>
                     <td th:text="${p.effectiveTaxRate}"></td>
